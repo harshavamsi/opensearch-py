@@ -34,6 +34,11 @@ jobs:
           ref: ${{ env.TAG }}
           token: ${{ steps.github_app_token.outputs.token }}
 
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+          token: ${{ steps.github_app_token.outputs.token }}
+
       - name: Increment Patch Version
         run: |
           echo Incrementing $CURRENT_VERSION to $NEXT_VERSION
@@ -41,12 +46,6 @@ jobs:
           echo Updating unified-release to $NEXT_VERSION from $CURRENT_VERSION
           sed -i "s/stack_version: ['$CURRENT_VERSION']/stack_version: ['$NEXT_VERSION']/g" .github/workflows/unified-release.yml
           
-
-      - uses: actions/checkout@v2
-              with:
-                ref: main
-                token: ${{ steps.github_app_token.outputs.token }}
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
