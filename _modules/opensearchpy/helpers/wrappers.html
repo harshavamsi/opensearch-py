@@ -80,7 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.helpers.wrappers</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -107,12 +108,11 @@
 <span class="c1">#  under the License.</span>
 
 <span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">iteritems</span><span class="p">,</span> <span class="n">string_types</span>
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">AttrDict</span>
-
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Range&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Range"><a class="viewcode-back" href="../../../api-ref/helpers/wrappers.html#opensearchpy.helpers.wrappers.Range">[docs]</a><span class="k">class</span> <span class="nc">Range</span><span class="p">(</span><span class="n">AttrDict</span><span class="p">):</span>
@@ -123,7 +123,7 @@
         <span class="s2">&quot;gte&quot;</span><span class="p">:</span> <span class="n">operator</span><span class="o">.</span><span class="n">ge</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Range accepts a single dictionary or a set of keyword arguments.&quot;</span>
@@ -142,10 +142,10 @@
 
         <span class="nb">super</span><span class="p">(</span><span class="n">Range</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Range.__repr__"><a class="viewcode-back" href="../../../api-ref/helpers/wrappers.html#opensearchpy.helpers.wrappers.Range.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Range.__repr__"><a class="viewcode-back" href="../../../api-ref/helpers/wrappers.html#opensearchpy.helpers.wrappers.Range.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Range(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=</span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">op</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_d_</span><span class="p">))</span></div>
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Range</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
@@ -155,7 +155,7 @@
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;lt&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_</span><span class="p">[</span><span class="s2">&quot;lt&quot;</span><span class="p">],</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="s2">&quot;lte&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_</span><span class="p">:</span>
@@ -163,12 +163,15 @@
         <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">lower</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">lower</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;gt&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_</span><span class="p">[</span><span class="s2">&quot;gt&quot;</span><span class="p">],</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="s2">&quot;gte&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_</span><span class="p">[</span><span class="s2">&quot;gte&quot;</span><span class="p">],</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span></div>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Range&quot;</span><span class="p">]</span>
 </pre></div>
 
            </div>

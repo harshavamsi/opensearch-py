@@ -124,6 +124,7 @@
 <li><p><strong>using</strong> – <cite>OpenSearch</cite> instance to use</p></li>
 <li><p><strong>index</strong> – limit the search to index</p></li>
 <li><p><strong>doc_type</strong> – only query this type.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -135,6 +136,11 @@ overridden by methods (<cite>using</cite>, <cite>index</cite> and <cite>doc_type
 <dd><p>Return a clone of the current search request. Performs a shallow copy
 of all the underlying objects. Used internally by most state modifying
 APIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -142,6 +148,11 @@ APIs.</p>
 <span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/update_by_query.html#UpdateByQuery.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.update_by_query.UpdateByQuery.execute" title="Permalink to this definition"></a></dt>
 <dd><p>Execute the search and return an instance of <code class="docutils literal notranslate"><span class="pre">Response</span></code> wrapping all
 the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -161,12 +172,28 @@ body. Useful when migrating from raw dictionaries.</p>
 <span class="n">ubq</span> <span class="o">=</span> <span class="n">ubq</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;term&#39;</span><span class="p">,</span> <span class="n">published</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.helpers.update_by_query.UpdateByQuery.response_class">
 <span class="sig-name descname"><span class="pre">response_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/update_by_query.html#UpdateByQuery.response_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.update_by_query.UpdateByQuery.response_class" title="Permalink to this definition"></a></dt>
 <dd><p>Override the default wrapper used for the response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cls</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -183,6 +210,14 @@ calling the script multiple times will overwrite.</p>
              <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -191,6 +226,14 @@ calling the script multiple times will overwrite.</p>
 <dd><p>Serialize the search into the dictionary that will be sent over as the
 request’ubq body.</p>
 <p>All additional keyword arguments will be included into the dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -198,6 +241,14 @@ request’ubq body.</p>
 <span class="sig-name descname"><span class="pre">update_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/helpers/update_by_query.html#UpdateByQuery.update_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.helpers.update_by_query.UpdateByQuery.update_from_dict" title="Permalink to this definition"></a></dt>
 <dd><p>Apply options from a serialized body to the current instance. Modifies
 the object in-place. Used mostly by <code class="docutils literal notranslate"><span class="pre">from_dict</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#opensearchpy.helpers.update_by_query.UpdateByQuery" title="opensearchpy.helpers.update_by_query.UpdateByQuery"><em>UpdateByQuery</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

@@ -81,7 +81,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.client.dangling_indices</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -108,24 +109,44 @@
 <span class="c1">#  under the License.</span>
 
 
+<span class="c1"># ----------------------------------------------------</span>
+<span class="c1"># THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.</span>
+<span class="c1">#</span>
+<span class="c1"># To contribute, kindly make essential modifications through either the &quot;opensearch-py client generator&quot;:</span>
+<span class="c1"># https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py</span>
+<span class="c1"># or the &quot;OpenSearch API specification&quot; available at:</span>
+<span class="c1"># https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json</span>
+<span class="c1"># -----------------------------------------------------</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
 <div class="viewcode-block" id="DanglingIndicesClient"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient">[docs]</a><span class="k">class</span> <span class="nc">DanglingIndicesClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
 <div class="viewcode-block" id="DanglingIndicesClient.delete_dangling_index"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;accept_data_loss&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
+        <span class="s2">&quot;accept_data_loss&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_dangling_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_uuid</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delete_dangling_index</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">index_uuid</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Deletes the specified dangling index</span>
+<span class="sd">        Deletes the specified dangling index.</span>
 
 
-<span class="sd">        :arg index_uuid: The UUID of the dangling index</span>
+<span class="sd">        :arg index_uuid: The UUID of the dangling index.</span>
 <span class="sd">        :arg accept_data_loss: Must be set to true in order to delete</span>
-<span class="sd">            the dangling index</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
-<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
+<span class="sd">            the dangling index.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
+<span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index_uuid</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;index_uuid&#39;.&quot;</span><span class="p">)</span>
@@ -138,19 +159,27 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="DanglingIndicesClient.import_dangling_index"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.import_dangling_index">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;accept_data_loss&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
+        <span class="s2">&quot;accept_data_loss&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">import_dangling_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_uuid</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">import_dangling_index</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">index_uuid</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Imports the specified dangling index</span>
+<span class="sd">        Imports the specified dangling index.</span>
 
 
-<span class="sd">        :arg index_uuid: The UUID of the dangling index</span>
+<span class="sd">        :arg index_uuid: The UUID of the dangling index.</span>
 <span class="sd">        :arg accept_data_loss: Must be set to true in order to import</span>
-<span class="sd">            the dangling index</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Specify timeout for connection to master</span>
-<span class="sd">        :arg cluster_manager_timeout: Specify timeout for connection to cluster_manager</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
+<span class="sd">            the dangling index.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
+<span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index_uuid</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;index_uuid&#39;.&quot;</span><span class="p">)</span>
@@ -160,7 +189,11 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="DanglingIndicesClient.list_dangling_indices"><a class="viewcode-back" href="../../../api-ref/clients/dangling_indices_client.html#opensearchpy.client.dangling_indices.DanglingIndicesClient.list_dangling_indices">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">list_dangling_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">list_dangling_indices</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all dangling indices.</span>
 

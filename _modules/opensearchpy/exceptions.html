@@ -80,7 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.exceptions</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -106,6 +107,8 @@
 <span class="c1">#  specific language governing permissions and limitations</span>
 <span class="c1">#  under the License.</span>
 
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;ImproperlyConfigured&quot;</span><span class="p">,</span>
@@ -157,32 +160,33 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">status_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">status_code</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The HTTP status code of the response that precipitated the error or</span>
 <span class="sd">        ``&#39;N/A&#39;`` if not applicable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;A string error message.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Dict of returned error info from OpenSearch, where available, underlying</span>
 <span class="sd">        exception when not.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
-<div class="viewcode-block" id="TransportError.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.TransportError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TransportError.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.TransportError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">cause</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="ow">and</span> <span class="s2">&quot;error&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
-                    <span class="n">root_cause</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><span class="s2">&quot;root_cause&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;error&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">:</span>
+                <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">root_cause</span> <span class="o">=</span> <span class="n">error</span><span class="p">[</span><span class="s2">&quot;root_cause&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">cause</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                         <span class="nb">filter</span><span class="p">(</span>
                             <span class="kc">None</span><span class="p">,</span>
@@ -209,7 +213,7 @@
 <span class="sd">    implementation is available as ``.info``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ConnectionError.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionError.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;ConnectionError(</span><span class="si">%s</span><span class="s2">) caused by: </span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
@@ -224,7 +228,7 @@
 <div class="viewcode-block" id="ConnectionTimeout"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionTimeout">[docs]</a><span class="k">class</span> <span class="nc">ConnectionTimeout</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A network timeout. Doesn&#39;t cause a node retry by default.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ConnectionTimeout.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionTimeout.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionTimeout.__str__"><a class="viewcode-back" href="../../api-ref/exceptions.html#opensearchpy.ConnectionTimeout.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;ConnectionTimeout caused by - </span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">,</span>
@@ -280,7 +284,7 @@
 
 
 <span class="c1"># more generic mappings from status_code to python exceptions</span>
-<span class="n">HTTP_EXCEPTIONS</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">HTTP_EXCEPTIONS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">OpenSearchException</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mi">400</span><span class="p">:</span> <span class="n">RequestError</span><span class="p">,</span>
     <span class="mi">401</span><span class="p">:</span> <span class="n">AuthenticationException</span><span class="p">,</span>
     <span class="mi">403</span><span class="p">:</span> <span class="n">AuthorizationException</span><span class="p">,</span>

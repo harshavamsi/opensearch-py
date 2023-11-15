@@ -80,7 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.connection.http_urllib3</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -109,11 +110,12 @@
 <span class="kn">import</span> <span class="nn">ssl</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">urllib3</span>  <span class="c1"># type: ignore</span>
+<span class="kn">import</span> <span class="nn">urllib3</span>
 <span class="kn">from</span> <span class="nn">urllib3.exceptions</span> <span class="kn">import</span> <span class="n">ReadTimeoutError</span>
-<span class="kn">from</span> <span class="nn">urllib3.exceptions</span> <span class="kn">import</span> <span class="n">SSLError</span> <span class="k">as</span> <span class="n">UrllibSSLError</span>  <span class="c1"># type: ignore</span>
-<span class="kn">from</span> <span class="nn">urllib3.util.retry</span> <span class="kn">import</span> <span class="n">Retry</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">urllib3.exceptions</span> <span class="kn">import</span> <span class="n">SSLError</span> <span class="k">as</span> <span class="n">UrllibSSLError</span>
+<span class="kn">from</span> <span class="nn">urllib3.util.retry</span> <span class="kn">import</span> <span class="n">Retry</span>
 
 <span class="kn">from</span> <span class="nn">..compat</span> <span class="kn">import</span> <span class="n">reraise_exceptions</span><span class="p">,</span> <span class="n">urlencode</span>
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
@@ -131,7 +133,7 @@
 <span class="n">SSL_SHOW_WARN_DEFAULT</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">create_ssl_context</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_ssl_context</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A helper function around creating an SSL context</span>
 
@@ -168,7 +170,7 @@
 <span class="sd">        ``ssl`` module for exact options for your environment).</span>
 <span class="sd">    :arg ssl_assert_hostname: use hostname verification if not `False`</span>
 <span class="sd">    :arg ssl_assert_fingerprint: verify the supplied certificate fingerprint if not `None`</span>
-<span class="sd">    :arg maxsize: the number of connections which will be kept open to this</span>
+<span class="sd">    :arg pool_maxsize: the number of connections which will be kept open to this</span>
 <span class="sd">        host. See https://urllib3.readthedocs.io/en/1.4/pools.html#api for more</span>
 <span class="sd">        information.</span>
 <span class="sd">    :arg headers: any custom http headers to be add to requests</span>
@@ -179,25 +181,25 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-        <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">http_auth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">use_ssl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">verify_certs</span><span class="o">=</span><span class="n">VERIFY_CERTS_DEFAULT</span><span class="p">,</span>
-        <span class="n">ssl_show_warn</span><span class="o">=</span><span class="n">SSL_SHOW_WARN_DEFAULT</span><span class="p">,</span>
-        <span class="n">ca_certs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">client_cert</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">client_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">ssl_version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">ssl_assert_hostname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">ssl_assert_fingerprint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">maxsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-        <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">ssl_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">http_compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">opaque_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">):</span>
+        <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">http_auth</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_ssl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">verify_certs</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">VERIFY_CERTS_DEFAULT</span><span class="p">,</span>
+        <span class="n">ssl_show_warn</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">SSL_SHOW_WARN_DEFAULT</span><span class="p">,</span>
+        <span class="n">ca_certs</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">client_cert</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">client_key</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ssl_version</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ssl_assert_hostname</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ssl_assert_fingerprint</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">pool_maxsize</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ssl_context</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">http_compress</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">opaque_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Initialize headers before calling super().__init__().</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">make_headers</span><span class="p">(</span><span class="n">keep_alive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -210,12 +212,19 @@
             <span class="n">opaque_id</span><span class="o">=</span><span class="n">opaque_id</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">http_auth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">http_auth</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
-                <span class="n">http_auth</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">http_auth</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">make_headers</span><span class="p">(</span><span class="n">basic_auth</span><span class="o">=</span><span class="n">http_auth</span><span class="p">))</span>
 
-        <span class="n">pool_class</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">HTTPConnectionPool</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span> <span class="o">=</span> <span class="n">http_auth</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span><span class="p">,</span> <span class="n">Callable</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="n">urllib3</span><span class="o">.</span><span class="n">make_headers</span><span class="p">(</span><span class="n">basic_auth</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">http_auth</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">make_headers</span><span class="p">(</span><span class="n">basic_auth</span><span class="o">=</span><span class="n">http_auth</span><span class="p">))</span>
+
+        <span class="n">pool_class</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">HTTPConnectionPool</span>
         <span class="n">kw</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1"># if providing an SSL context, raise error if any other SSL related flag is used</span>
@@ -285,18 +294,29 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">ssl_show_warn</span><span class="p">:</span>
                     <span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
 
+        <span class="k">if</span> <span class="n">pool_maxsize</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pool_maxsize</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">kw</span><span class="p">[</span><span class="s2">&quot;maxsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pool_maxsize</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">pool_class</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="n">maxsize</span><span class="o">=</span><span class="n">maxsize</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">perform_request</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="p">(),</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ignore</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_prefix</span> <span class="o">+</span> <span class="n">url</span>
         <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
             <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">?</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
 
         <span class="n">full_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">+</span> <span class="n">url</span>
+
         <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">orig_body</span> <span class="o">=</span> <span class="n">body</span>
         <span class="k">try</span><span class="p">:</span>
@@ -318,6 +338,10 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_compress</span> <span class="ow">and</span> <span class="n">body</span><span class="p">:</span>
                 <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gzip_compress</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
                 <span class="n">request_headers</span><span class="p">[</span><span class="s2">&quot;content-encoding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;gzip&quot;</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span><span class="p">,</span> <span class="n">Callable</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+                    <span class="n">request_headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">http_auth</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">full_url</span><span class="p">,</span> <span class="n">body</span><span class="p">))</span>
 
             <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
                 <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="n">Retry</span><span class="p">(</span><span class="kc">False</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">request_headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span>
@@ -357,10 +381,10 @@
 
         <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">raw_data</span>
 
-    <span class="k">def</span> <span class="nf">get_response_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_response_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">header</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">value</span> <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 
-<div class="viewcode-block" id="Urllib3HttpConnection.close"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Urllib3HttpConnection.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Urllib3HttpConnection.close"><a class="viewcode-back" href="../../../api-ref/connection.html#opensearchpy.Urllib3HttpConnection.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly closes connection</span>
 <span class="sd">        &quot;&quot;&quot;</span>

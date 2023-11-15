@@ -53,6 +53,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../client.html">Clients</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="opensearch_client.html">OpenSearch Client</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../client.html#clients-within-opensearch">Clients within Opensearch</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="http_client.html">Http Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cat_client.html">Compact and aligned text (CAT) Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cluster_client.html">Cluster Client</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Dangling Indices Client</a></li>
@@ -60,6 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="indices_client.html">Indices Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nodes_client.html">Nodes Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remote_client.html">Remote Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="security_client.html">Security Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="snapshot_client.html">Snapshot Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tasks_client.html">Tasks Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="features_client.html">Features Client</a></li>
@@ -116,20 +118,34 @@
 <dt class="sig sig-object py" id="opensearchpy.client.dangling_indices.DanglingIndicesClient">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.client.dangling_indices.</span></span><span class="sig-name descname"><span class="pre">DanglingIndicesClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/dangling_indices.html#DanglingIndicesClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.dangling_indices.DanglingIndicesClient" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamespacedClient</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>client</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index">
 <span class="sig-name descname"><span class="pre">delete_dangling_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/dangling_indices.html#DanglingIndicesClient.delete_dangling_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.dangling_indices.DanglingIndicesClient.delete_dangling_index" title="Permalink to this definition"></a></dt>
-<dd><p>Deletes the specified dangling index</p>
+<dd><p>Deletes the specified dangling index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index_uuid</strong> – The UUID of the dangling index</p></li>
+<li><p><strong>index_uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The UUID of the dangling index.</p></li>
 <li><p><strong>accept_data_loss</strong> – Must be set to true in order to delete
-the dangling index</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+the dangling index.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>index_uuid</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -137,17 +153,26 @@ the dangling index</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.dangling_indices.DanglingIndicesClient.import_dangling_index">
 <span class="sig-name descname"><span class="pre">import_dangling_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/dangling_indices.html#DanglingIndicesClient.import_dangling_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.dangling_indices.DanglingIndicesClient.import_dangling_index" title="Permalink to this definition"></a></dt>
-<dd><p>Imports the specified dangling index</p>
+<dd><p>Imports the specified dangling index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index_uuid</strong> – The UUID of the dangling index</p></li>
+<li><p><strong>index_uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The UUID of the dangling index.</p></li>
 <li><p><strong>accept_data_loss</strong> – Must be set to true in order to import
-the dangling index</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+the dangling index.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>index_uuid</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -156,6 +181,17 @@ the dangling index</p></li>
 <dt class="sig sig-object py" id="opensearchpy.client.dangling_indices.DanglingIndicesClient.list_dangling_indices">
 <span class="sig-name descname"><span class="pre">list_dangling_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/dangling_indices.html#DanglingIndicesClient.list_dangling_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.dangling_indices.DanglingIndicesClient.list_dangling_indices" title="Permalink to this definition"></a></dt>
 <dd><p>Returns all dangling indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

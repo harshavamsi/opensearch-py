@@ -80,7 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.plugins.alerting</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -90,12 +91,14 @@
 <span class="c1"># GitHub history for details.</span>
 
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
 <span class="kn">from</span> <span class="nn">..client.utils</span> <span class="kn">import</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
 <div class="viewcode-block" id="AlertingClient"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient">[docs]</a><span class="k">class</span> <span class="nc">AlertingClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
 <div class="viewcode-block" id="AlertingClient.search_monitor"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.search_monitor">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">search_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">search_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the search result for a monitor.</span>
 
@@ -110,7 +113,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.get_monitor"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.get_monitor">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">get_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_monitor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the details of a specific monitor.</span>
 
@@ -124,7 +129,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.run_monitor"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.run_monitor">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;dryrun&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">run_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run_monitor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Runs/Executes a specific monitor.</span>
 
@@ -139,7 +146,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.create_monitor"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.create_monitor">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">create_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create_monitor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a monitor with inputs, triggers, and actions.</span>
 
@@ -154,7 +163,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.update_monitor"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.update_monitor">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">update_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">update_monitor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates a monitor&#39;s inputs, triggers, and actions.</span>
 
@@ -170,7 +181,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.delete_monitor"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.delete_monitor">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">delete_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delete_monitor</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a specific monitor.</span>
 
@@ -184,7 +197,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.get_destination"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.get_destination">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">get_destination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_destination</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">destination_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the details of a specific destination.</span>
 
@@ -200,7 +215,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.create_destination"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.create_destination">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">create_destination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create_destination</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a destination for slack, mail, or custom-webhook.</span>
 
@@ -215,7 +232,13 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.update_destination"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.update_destination">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">update_destination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination_id</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">update_destination</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">destination_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates a destination&#39;s inputs, triggers, and actions.</span>
 
@@ -231,7 +254,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.delete_destination"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.delete_destination">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">delete_destination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination_id</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delete_destination</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">destination_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a specific destination.</span>
 
@@ -245,7 +270,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.get_alerts"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.get_alerts">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">get_alerts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_alerts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all alerts.</span>
 
@@ -258,7 +283,9 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="AlertingClient.acknowledge_alert"><a class="viewcode-back" href="../../../api-ref/plugins/alerting_plugin.html#opensearchpy.plugins.alerting.AlertingClient.acknowledge_alert">[docs]</a>    <span class="nd">@query_params</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">acknowledge_alert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">acknowledge_alert</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">monitor_id</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Acknowledges an alert.</span>
 

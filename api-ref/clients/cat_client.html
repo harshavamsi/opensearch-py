@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Cluster Client" href="cluster_client.html" />
-    <link rel="prev" title="OpenSearch Client" href="opensearch_client.html" /> 
+    <link rel="prev" title="Http Client" href="http_client.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -53,6 +53,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../client.html">Clients</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="opensearch_client.html">OpenSearch Client</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../client.html#clients-within-opensearch">Clients within Opensearch</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="http_client.html">Http Client</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Compact and aligned text (CAT) Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cluster_client.html">Cluster Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dangling_indices_client.html">Dangling Indices Client</a></li>
@@ -60,6 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="indices_client.html">Indices Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nodes_client.html">Nodes Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remote_client.html">Remote Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="security_client.html">Security Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="snapshot_client.html">Snapshot Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tasks_client.html">Tasks Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="features_client.html">Features Client</a></li>
@@ -116,6 +118,11 @@
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.client.cat.</span></span><span class="sig-name descname"><span class="pre">CatClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamespacedClient</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>client</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.aliases">
 <span class="sig-name descname"><span class="pre">aliases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.aliases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.aliases" title="Permalink to this definition"></a></dt>
@@ -124,20 +131,43 @@ filter and routing infos.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – A comma-separated list of alias names to return</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of alias names.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: all</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
+from cluster-manager node. Default is false.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>name</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.all_pit_segments">
+<span class="sig-name descname"><span class="pre">all_pit_segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.all_pit_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.all_pit_segments" title="Permalink to this definition"></a></dt>
+<dd><p>Lists all active point-in-time segments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -150,24 +180,31 @@ much disk space they are using.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>node_id</strong> – A comma-separated list of node IDs or names to
-limit the returned information</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
-choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of node IDs or names to limit
+the returned information.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>node_id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -175,22 +212,30 @@ to sort by</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.cluster_manager">
 <span class="sig-name descname"><span class="pre">cluster_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.cluster_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.cluster_manager" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about the cluster_manager node.</p>
+<dd><p>Returns information about the cluster-manager node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -203,16 +248,22 @@ individual indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to limit the
-returned information</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to limit the
+returned information.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -225,18 +276,24 @@ node in the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fields</strong> – A comma-separated list of fields to return in the
-output</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
-choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of fields to return in the
+output.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>fields</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -248,17 +305,22 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>ts</strong> – Set to false to disable timestamping  Default: True</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>ts</strong> – Set to false to disable timestamping. Default is True.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -270,10 +332,15 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
+to sort by.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -286,36 +353,44 @@ counts, disk size, …</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to limit the
-returned information</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
-choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to limit the
+returned information.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: all</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>health</strong> – A health status (“green”, “yellow”, or “red” to
-filter only indices matching the specified health status  Valid choices:
-green, yellow, red</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>health</strong> – Health status (‘green’, ‘yellow’, or ‘red’) to
+filter only indices matching the specified health status. Valid choices
+are green, yellow, red.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>include_unloaded_segments</strong> – If set to true segment stats
 will include stats for segments that are not currently loaded into
-memory</p></li>
+memory. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
-<li><p><strong>pri</strong> – Set to true to return stats only for primary shards</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
+<li><p><strong>pri</strong> – Set to true to return stats only for primary shards.
+Default is false.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -323,24 +398,30 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.master">
 <span class="sig-name descname"><span class="pre">master</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.master"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.master" title="Permalink to this definition"></a></dt>
-<dd><p>Returns information about the master node.</p>
+<dd><p>Returns information about the cluster-manager node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -352,20 +433,26 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -377,29 +464,33 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
-choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
 <li><p><strong>full_id</strong> – Return the full node ID instead of the shortened
-version (default: false)</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>include_unloaded_segments</strong> – If set to true segment stats
-will include stats for segments that are not currently loaded into
-memory</p></li>
-<li><p><strong>local</strong> – Calculate the selected nodes using the local cluster
-state rather than the state from master node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+version. Default is false.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – This parameter does not cause this API
+to act locally.): Return local information, do not retrieve the state
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -411,22 +502,46 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.pit_segments">
+<span class="sig-name descname"><span class="pre">pit_segments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.pit_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.pit_segments" title="Permalink to this definition"></a></dt>
+<dd><p>List segments for one or several PITs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -438,22 +553,26 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>include_bootstrap</strong> – Include bootstrap plugins in the
-response</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -465,24 +584,30 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – Comma-separated list or wildcard expression of index
-names to limit the returned information</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list or wildcard expression of index
+names to limit the returned information.</p></li>
 <li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
-shard recoveries</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
-choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
+shard recoveries. Default is false.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
 <li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
-information about shard recoveries</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+information about shard recoveries. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -494,20 +619,65 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from master node</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.segment_replication">
+<span class="sig-name descname"><span class="pre">segment_replication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.segment_replication"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.segment_replication" title="Permalink to this definition"></a></dt>
+<dd><p>Returns information about both on-going and latest completed Segment
+Replication events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list or wildcard expression of index
+names to limit the returned information.</p></li>
+<li><p><strong>active_only</strong> – If <cite>true</cite>, the response only includes ongoing
+segment replication events. Default is false.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>completed_only</strong> – If <cite>true</cite>, the response only includes
+latest completed segment replication events. Default is false.</p></li>
+<li><p><strong>detailed</strong> – If <cite>true</cite>, the response includes detailed
+information about segment replications. Default is false.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
+to sort by.</p></li>
+<li><p><strong>shards</strong> – Comma-separated list of shards to display.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -519,18 +689,29 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to limit the
-returned information</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
-choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to limit the
+returned information.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -542,26 +723,33 @@ to sort by</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to limit the
-returned information</p></li>
-<li><p><strong>bytes</strong> – The unit in which to display byte values  Valid
-choices: b, k, kb, m, mb, g, gb, t, tb, p, pb</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to limit the
+returned information.</p></li>
+<li><p><strong>bytes</strong> – The unit in which to display byte values. Valid
+choices are b, k, kb, m, mb, g, gb, t, tb, p, pb.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -573,24 +761,31 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>repository</strong> – Name of repository from which to fetch the
-snapshot information</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>ignore_unavailable</strong> – Set to true to ignore unavailable
-snapshots</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+<li><p><strong>repository</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of repository names.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
+should be ignored when unavailable (missing or closed). Default is
+false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>repository</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -603,24 +798,31 @@ the cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>actions</strong> – A comma-separated list of actions that should be
+<li><p><strong>actions</strong> – Comma-separated list of actions that should be
 returned. Leave empty to return all.</p></li>
-<li><p><strong>detailed</strong> – Return detailed task information (default: false)</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>nodes</strong> – A comma-separated list of node IDs or names to limit
+<li><p><strong>detailed</strong> – Return detailed task information. Default is
+false.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
+<li><p><strong>nodes</strong> – Comma-separated list of node IDs or names to limit
 the returned information; use <cite>_local</cite> to return information from the
-node you’re connecting to, leave empty to get information from all nodes</p></li>
+node you’re connecting to, leave empty to get information from all
+nodes.</p></li>
 <li><p><strong>parent_task_id</strong> – Return tasks with specified parent task id
 (node_id:task_number). Set to -1 to return all.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>time</strong> – The unit in which to display time values. Valid
+choices are d, h, m, s, ms, micros, nanos.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -632,21 +834,28 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – A pattern that returned template names must match</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The name of the template.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>name</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -659,53 +868,30 @@ queue and rejected statistics are returned for all thread pools.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>thread_pool_patterns</strong> – A comma-separated list of regular-
-expressions to filter the thread pools in the output</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
+<li><p><strong>thread_pool_patterns</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of regular-
+expressions to filter the thread pools in the output.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>format</strong> – A short version of the Accept header, e.g. json,
+yaml.</p></li>
+<li><p><strong>h</strong> – Comma-separated list of column names to display.</p></li>
+<li><p><strong>help</strong> – Return help information. Default is false.</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Explicit operation timeout for connection
-to master node</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
-to cluster_manager node</p></li>
+from cluster-manager node. Default is false.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
 <li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>size</strong> – The multiplier in which to display values  Valid
-choices: , k, m, g, t, p</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
+to sort by.</p></li>
+<li><p><strong>size</strong> – The multiplier in which to display values.</p></li>
+<li><p><strong>v</strong> – Verbose mode. Display column headers. Default is false.</p></li>
+<li><p><strong>thread_pool_patterns</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.client.cat.CatClient.transforms">
-<span class="sig-name descname"><span class="pre">transforms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/cat.html#CatClient.transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.cat.CatClient.transforms" title="Permalink to this definition"></a></dt>
-<dd><p>Gets configuration and usage information about transforms.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>transform_id</strong> – The id of the transform for which to get
-stats. ‘_all’ or ‘*’ implies all transforms</p></li>
-<li><p><strong>allow_no_match</strong> – Whether to ignore if a wildcard expression
-matches no transforms. (This includes <cite>_all</cite> string or when no
-transforms have been specified)</p></li>
-<li><p><strong>format</strong> – a short version of the Accept header, e.g. json,
-yaml</p></li>
-<li><p><strong>from</strong> – skips a number of transform configs, defaults to 0</p></li>
-<li><p><strong>h</strong> – Comma-separated list of column names to display</p></li>
-<li><p><strong>help</strong> – Return help information</p></li>
-<li><p><strong>s</strong> – Comma-separated list of column names or column aliases
-to sort by</p></li>
-<li><p><strong>size</strong> – specifies a max number of transforms to get, defaults
-to 100</p></li>
-<li><p><strong>time</strong> – The unit in which to display time values  Valid
-choices: d, h, m, s, ms, micros, nanos</p></li>
-<li><p><strong>v</strong> – Verbose mode. Display column headers</p></li>
-</ul>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -718,7 +904,7 @@ choices: d, h, m, s, ms, micros, nanos</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="opensearch_client.html" class="btn btn-neutral float-left" title="OpenSearch Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="http_client.html" class="btn btn-neutral float-left" title="Http Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="cluster_client.html" class="btn btn-neutral float-right" title="Cluster Client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

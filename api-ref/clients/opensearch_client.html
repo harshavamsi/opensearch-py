@@ -24,7 +24,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Compact and aligned text (CAT) Client" href="cat_client.html" />
+    <link rel="next" title="Http Client" href="http_client.html" />
     <link rel="prev" title="Clients" href="../client.html" /> 
 </head>
 
@@ -106,7 +106,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.</span></span><span class="sig-name descname"><span class="pre">OpenSearch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transport_class=&lt;class</span> <span class="pre">'opensearchpy.transport.Transport'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></p>
 <p>OpenSearch client. Provides a straightforward mapping from
 Python to OpenSearch REST endpoints.</p>
 <p>The instance has attributes <code class="docutils literal notranslate"><span class="pre">cat</span></code>, <code class="docutils literal notranslate"><span class="pre">cluster</span></code>, <code class="docutils literal notranslate"><span class="pre">indices</span></code>, <code class="docutils literal notranslate"><span class="pre">ingest</span></code>,
@@ -126,7 +126,7 @@ the <code class="docutils literal notranslate"><span class="pre">connection_clas
 <span class="n">client</span> <span class="o">=</span> <span class="n">OpenSearch</span><span class="p">(</span><span class="n">connection_class</span><span class="o">=</span><span class="n">ThriftConnection</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If you want to turn on <span class="xref std std-ref">sniffing</span> you have several options (described
+<p>If you want to turn on sniffing you have several options (described
 in <a class="reference internal" href="../transport.html#opensearchpy.Transport" title="opensearchpy.Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transport</span></code></a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create connection that will automatically inspect the cluster to get</span>
 <span class="c1"># the list of active nodes. Start with nodes running on</span>
@@ -228,16 +228,19 @@ However, you can implement your own custom serializer:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>hosts</strong> – list of nodes, or a single node, we should connect to.
+<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – list of nodes, or a single node, we should connect to.
 Node should be a dictionary ({“host”: “localhost”, “port”: 9200}),
 the entire dictionary will be passed to the <a class="reference internal" href="../connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a>
 class as kwargs, or a string in the format of <code class="docutils literal notranslate"><span class="pre">host[:port]</span></code> which will be
 translated to a dictionary automatically.  If no value is given the
 <a class="reference internal" href="../connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> class defaults will be used.</p></li>
-<li><p><strong>transport_class</strong> – <a class="reference internal" href="../transport.html#opensearchpy.Transport" title="opensearchpy.Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transport</span></code></a> subclass to use.</p></li>
-<li><p><strong>kwargs</strong> – any additional arguments will be passed on to the
+<li><p><strong>transport_class</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.12)"><em>Type</em></a><em>[</em><a class="reference internal" href="../transport.html#opensearchpy.Transport" title="opensearchpy.transport.Transport"><em>Transport</em></a><em>]</em>) – <a class="reference internal" href="../transport.html#opensearchpy.Transport" title="opensearchpy.Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transport</span></code></a> subclass to use.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – any additional arguments will be passed on to the
 <a class="reference internal" href="../transport.html#opensearchpy.Transport" title="opensearchpy.Transport"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transport</span></code></a> class and, subsequently, to the
 <a class="reference internal" href="../connection.html#opensearchpy.Connection" title="opensearchpy.Connection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Connection</span></code></a> instances.</p></li>
+<li><p><strong>hosts</strong> – </p></li>
+<li><p><strong>transport_class</strong> – </p></li>
+<li><p><strong>kwargs</strong> – </p></li>
 </ul>
 </dd>
 </dl>
@@ -245,6 +248,11 @@ translated to a dictionary automatically.  If no value is given the
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.__repr__">
 <span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.__repr__" title="Permalink to this definition"></a></dt>
 <dd><p>Return repr(self).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -254,32 +262,39 @@ translated to a dictionary automatically.  If no value is given the
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The operation definition and data (action-data
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The operation definition and data (action-data
 pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> – Default index for items which don’t provide one</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Default index for items which don’t provide one.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
 or default list of fields to return, can be overridden on each sub-
-request</p></li>
+request.</p></li>
 <li><p><strong>_source_excludes</strong> – Default list of fields to exclude from
-the returned _source field, can be overridden on each sub-request</p></li>
+the returned _source field, can be overridden on each sub-request.</p></li>
 <li><p><strong>_source_includes</strong> – Default list of fields to extract and
-return from the _source field, can be overridden on each sub-request</p></li>
+return from the _source field, can be overridden on each sub-request.</p></li>
 <li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
-with</p></li>
+with.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
 this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
 to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes.  Valid choices: true, false, wait_for</p></li>
+do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
 <li><p><strong>require_alias</strong> – Sets require_alias for all incoming
-documents. Defaults to unset (false)</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+documents. Default is false.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the bulk operation. Defaults
-to 1, meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
+that must be active before proceeding with the operation. Defaults to 1,
+meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
 otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1)</p></li>
+number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -291,10 +306,17 @@ number of copies for the shard (number of replicas + 1)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – A comma-separated list of scroll IDs to clear if none
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear if none
 was specified via the scroll_id parameter</p></li>
-<li><p><strong>scroll_id</strong> – A comma-separated list of scroll IDs to clear</p></li>
+<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of scroll IDs to clear.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>scroll_id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -303,6 +325,11 @@ was specified via the scroll_id parameter</p></li>
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.close">
 <span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.close" title="Permalink to this definition"></a></dt>
 <dd><p>Closes the Transport and all internal connections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -312,38 +339,46 @@ was specified via the scroll_id parameter</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – A query to restrict the results specified with the
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Query to restrict the results specified with the
 Query DSL (optional)</p></li>
-<li><p><strong>index</strong> – A comma-separated list of indices to restrict the
-results</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to restrict the
+results.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
 <li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed (default: false)</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string</p></li>
+queries should be analyzed. Default is false.</p></li>
+<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR)  Valid choices: AND, OR  Default: OR</p></li>
+query (AND or OR). Valid choices are AND, OR.</p></li>
 <li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string</p></li>
+given in the query string.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
 <li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded or
-aliased indices should be ignored when throttled</p></li>
+aliased indices should be ignored when throttled.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored</p></li>
+as providing text to a numeric field) should be ignored.</p></li>
 <li><p><strong>min_score</strong> – Include only documents with a specific <cite>_score</cite>
-value in the result</p></li>
+value in the result.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
-<li><p><strong>q</strong> – Query in the Lucene query string syntax</p></li>
-<li><p><strong>routing</strong> – A comma-separated list of specific routing values</p></li>
-<li><p><strong>terminate_after</strong> – The maximum count for each shard, upon
-reaching which the query execution will terminate early</p></li>
+be performed on. Default is random.</p></li>
+<li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
+<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
+<li><p><strong>terminate_after</strong> – The maximum number of documents to collect
+for each shard, upon reaching which the query execution will terminate
+early.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -356,38 +391,75 @@ with a same ID already exists in the index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>id</strong> – Document ID</p></li>
-<li><p><strong>body</strong> – The document</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The document</p></li>
 <li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
-with</p></li>
+with.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
 this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
 to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes.  Valid choices: true, false, wait_for</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte</p></li>
+do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the index operation. Defaults
-to 1, meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
+that must be active before proceeding with the operation. Defaults to 1,
+meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
 otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1)</p></li>
+number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.create_pit">
+<span class="sig-name descname"><span class="pre">create_pit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.create_pit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.create_pit" title="Permalink to this definition"></a></dt>
+<dd><p>Creates point in time context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
+<li><p><strong>allow_partial_pit_creation</strong> – Allow if point in time can be
+created with partial failures.</p></li>
+<li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
+<li><p><strong>keep_alive</strong> – Specify the keep alive for point in time.</p></li>
+<li><p><strong>preference</strong> – Specify the node or shard the operation should
+be performed on. Default is random.</p></li>
+<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.create_point_in_time">
-<span class="sig-name descname"><span class="pre">create_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.create_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.create_point_in_time" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">create_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opensearchpy.OpenSearch.create_point_in_time" title="Permalink to this definition"></a></dt>
 <dd><p>Create a point in time that can be used in subsequent searches</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to open point
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – A comma-separated list of index names to open point
 in time; use <cite>_all</cite> or empty string to perform the operation on all
 indices</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
@@ -399,9 +471,21 @@ should be ignored when unavailable (missing or closed)</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
 be performed on (default: random)</p></li>
 <li><p><strong>routing</strong> – Specific routing value</p></li>
+<li><p><strong>self</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This API will be removed in a future version.
+Use ‘create_pit’ API instead.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -411,29 +495,51 @@ be performed on (default: random)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>id</strong> – The document ID</p></li>
-<li><p><strong>if_primary_term</strong> – only perform the delete operation if the
-last operation that has changed the document has the specified primary
-term</p></li>
-<li><p><strong>if_seq_no</strong> – only perform the delete operation if the last
-operation that has changed the document has the specified sequence
-number</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>if_primary_term</strong> – only perform the operation if the last
+operation that has changed the document has the specified primary term.</p></li>
+<li><p><strong>if_seq_no</strong> – only perform the operation if the last operation
+that has changed the document has the specified sequence number.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
 this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
 to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes.  Valid choices: true, false, wait_for</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte, force</p></li>
+do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the delete operation.
-Defaults to 1, meaning the primary shard only. Set to <cite>all</cite> for all
-shard copies, otherwise set to any non-negative value less than or equal
-to the total number of copies for the shard (number of replicas + 1)</p></li>
+that must be active before proceeding with the operation. Defaults to 1,
+meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
+otherwise set to any non-negative value less than or equal to the total
+number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete_all_pits">
+<span class="sig-name descname"><span class="pre">delete_all_pits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.delete_all_pits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_all_pits" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes all active point in time searches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -445,77 +551,84 @@ to the total number of copies for the shard (number of replicas + 1)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to search; use
-<cite>_all</cite> or empty string to perform the operation on all indices</p></li>
-<li><p><strong>body</strong> – The search definition using the Query DSL</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
 <li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed (default: false)</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string</p></li>
-<li><p><strong>conflicts</strong> – What to do when the delete by query hits version
-conflicts?  Valid choices: abort, proceed  Default: abort</p></li>
+queries should be analyzed. Default is false.</p></li>
+<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
+<li><p><strong>conflicts</strong> – What to do when the operation encounters version
+conflicts?. Valid choices are abort, proceed.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR)  Valid choices: AND, OR  Default: OR</p></li>
+query (AND or OR). Valid choices are AND, OR.</p></li>
 <li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string</p></li>
+given in the query string.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
-<li><p><strong>from</strong> – Starting offset (default: 0)</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
+<li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored</p></li>
+as providing text to a numeric field) should be ignored.</p></li>
 <li><p><strong>max_docs</strong> – Maximum number of documents to process (default:
-all documents)</p></li>
+all documents).</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
-<li><p><strong>q</strong> – Query in the Lucene query string syntax</p></li>
-<li><p><strong>refresh</strong> – Should the effected indexes be refreshed?</p></li>
+be performed on. Default is random.</p></li>
+<li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
+<li><p><strong>refresh</strong> – Refresh the shard containing the document before
+performing the operation.</p></li>
 <li><p><strong>request_cache</strong> – Specify if request cache should be used for
-this request or not, defaults to index level setting</p></li>
+this request or not, defaults to index level setting.</p></li>
 <li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
-requests per second. -1 means no throttle.</p></li>
-<li><p><strong>routing</strong> – A comma-separated list of specific routing values</p></li>
+requests per second. -1 means no throttle. Default is 0.</p></li>
+<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
 <li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search</p></li>
-<li><p><strong>scroll_size</strong> – Size on the scroll request powering the delete
-by query  Default: 100</p></li>
+should be maintained for scrolled search.</p></li>
+<li><p><strong>scroll_size</strong> – Size on the scroll request powering the
+operation. Default is 100.</p></li>
 <li><p><strong>search_timeout</strong> – Explicit timeout for each search request.
 Defaults to no timeout.</p></li>
-<li><p><strong>search_type</strong> – Search operation type  Valid choices:
-query_then_fetch, dfs_query_then_fetch</p></li>
-<li><p><strong>size</strong> – Deprecated, please use <cite>max_docs</cite> instead</p></li>
+<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+query_then_fetch, dfs_query_then_fetch.</p></li>
+<li><p><strong>size</strong> – Deprecated, please use <cite>max_docs</cite> instead.</p></li>
 <li><p><strong>slices</strong> – The number of slices this task should be divided
 into. Defaults to 1, meaning the task isn’t sliced into subtasks. Can be
-set to <cite>auto</cite>.  Default: 1</p></li>
-<li><p><strong>sort</strong> – A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs</p></li>
+set to <cite>auto</cite>. Default is 1.</p></li>
+<li><p><strong>sort</strong> – Comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
 <li><p><strong>stats</strong> – Specific ‘tag’ of the request for logging and
-statistical purposes</p></li>
+statistical purposes.</p></li>
 <li><p><strong>terminate_after</strong> – The maximum number of documents to collect
 for each shard, upon reaching which the query execution will terminate
 early.</p></li>
 <li><p><strong>timeout</strong> – Time each individual bulk request should wait for
-shards that are unavailable.  Default: 1m</p></li>
-<li><p><strong>version</strong> – Specify whether to return document version as part
-of a hit</p></li>
+shards that are unavailable. Default is 1m.</p></li>
+<li><p><strong>version</strong> – Whether to return document version as part of a
+hit.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the delete by query
-operation. Defaults to 1, meaning the primary shard only. Set to <cite>all</cite>
-for all shard copies, otherwise set to any non-negative value less than
-or equal to the total number of copies for the shard (number of replicas
-+ 1)</p></li>
-<li><p><strong>wait_for_completion</strong> – Should the request should block until
-the delete by query is complete.  Default: True</p></li>
+that must be active before proceeding with the operation. Defaults to 1,
+meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
+otherwise set to any non-negative value less than or equal to the total
+number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning. Default is True.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -528,26 +641,64 @@ operation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>task_id</strong> – The task id to rethrottle</p></li>
-<li><p><strong>requests_per_second</strong> – The throttle to set on this request in
-floating sub-requests per second. -1 means set no throttle.</p></li>
+<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The task id to rethrottle.</p></li>
+<li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
+requests per second. -1 means no throttle.</p></li>
+<li><p><strong>task_id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete_pit">
+<span class="sig-name descname"><span class="pre">delete_pit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.delete_pit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_pit" title="Permalink to this definition"></a></dt>
+<dd><p>Deletes one or more point in time searches based on the IDs passed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The point-in-time ids to be deleted</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.delete_point_in_time">
-<span class="sig-name descname"><span class="pre">delete_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.delete_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.delete_point_in_time" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opensearchpy.OpenSearch.delete_point_in_time" title="Permalink to this definition"></a></dt>
 <dd><p>Delete a point in time</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – a point-in-time id to delete</p></li>
-<li><p><strong>all</strong> – set it to <cite>True</cite> to delete all alive point in time.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – a point-in-time id to delete</p></li>
+<li><p><strong>all</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – set it to <cite>True</cite> to delete all alive point in time.</p></li>
+<li><p><strong>self</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>all</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This API will be removed in a future version.
+Use ‘delete_all_pits’ or ‘delete_pit’ API instead.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -557,11 +708,20 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> – Script ID</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Script ID.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -573,27 +733,34 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>id</strong> – The document ID</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
+be performed on. Default is random.</p></li>
 <li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode</p></li>
+realtime or search mode.</p></li>
 <li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>stored_fields</strong> – A comma-separated list of stored fields to
-return in the response</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte, force</p></li>
+performing the operation.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
+return.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -605,25 +772,32 @@ internal, external, external_gte, force</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>id</strong> – The document ID</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
+be performed on. Default is random.</p></li>
 <li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode</p></li>
+realtime or search mode.</p></li>
 <li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte, force</p></li>
+performing the operation.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -635,31 +809,39 @@ internal, external, external_gte, force</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>id</strong> – The document ID</p></li>
-<li><p><strong>body</strong> – The query definition using the Query DSL</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The query definition using the Query DSL</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>analyze_wildcard</strong> – Specify whether wildcards and prefix
-queries in the query string query should be analyzed (default: false)</p></li>
-<li><p><strong>analyzer</strong> – The analyzer for the query string query</p></li>
+queries in the query string query should be analyzed. Default is false.</p></li>
+<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR)  Valid choices: AND, OR  Default: OR</p></li>
-<li><p><strong>df</strong> – The default field for query string query (default:
-_all)</p></li>
+query (AND or OR). Valid choices are AND, OR.</p></li>
+<li><p><strong>df</strong> – The default field for query string query. Default is
+_all.</p></li>
 <li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored</p></li>
+as providing text to a numeric field) should be ignored.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
-<li><p><strong>q</strong> – Query in the Lucene query string syntax</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>stored_fields</strong> – A comma-separated list of stored fields to
-return in the response</p></li>
+be performed on. Default is random.</p></li>
+<li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
+return.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -672,21 +854,28 @@ indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – An index filter specified with the Query DSL</p></li>
-<li><p><strong>index</strong> – A comma-separated list of index names; use <cite>_all</cite> or
-empty string to perform the operation on all indices</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – An index filter specified with the Query DSL</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
-<li><p><strong>fields</strong> – A comma-separated list of field names</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
+<li><p><strong>fields</strong> – Comma-separated list of field names.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>include_unmapped</strong> – Indicates whether unmapped fields should
-be included in the response.</p></li>
+be included in the response. Default is false.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -698,27 +887,51 @@ be included in the response.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>id</strong> – The document ID</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
+be performed on. Default is random.</p></li>
 <li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode</p></li>
+realtime or search mode.</p></li>
 <li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>stored_fields</strong> – A comma-separated list of stored fields to
-return in the response</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte, force</p></li>
+performing the operation.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
+return.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="opensearchpy.OpenSearch.get_all_pits">
+<span class="sig-name descname"><span class="pre">get_all_pits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.get_all_pits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get_all_pits" title="Permalink to this definition"></a></dt>
+<dd><p>Lists all active point in time searches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -730,10 +943,19 @@ internal, external, external_gte, force</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> – Script ID</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Script ID.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -742,22 +964,34 @@ internal, external, external_gte, force</p></li>
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.get_script_context">
 <span class="sig-name descname"><span class="pre">get_script_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.get_script_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get_script_context" title="Permalink to this definition"></a></dt>
 <dd><p>Returns all script contexts.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <strong>experimental</strong> so may include breaking changes
-or be removed in a future version</p>
-</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.get_script_languages">
 <span class="sig-name descname"><span class="pre">get_script_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.get_script_languages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.get_script_languages" title="Permalink to this definition"></a></dt>
-<dd><p>Returns available script types, languages and contexts</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <strong>experimental</strong> so may include breaking changes
-or be removed in a future version</p>
-</div>
+<dd><p>Returns available script types, languages and contexts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -767,25 +1001,32 @@ or be removed in a future version</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>id</strong> – The document ID</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
+be performed on. Default is random.</p></li>
 <li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode</p></li>
+realtime or search mode.</p></li>
 <li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte, force</p></li>
+performing the operation.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -793,41 +1034,47 @@ internal, external, external_gte, force</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.index">
 <span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.index" title="Permalink to this definition"></a></dt>
-<dd><p>Creates or overwrites a document in an index.</p>
+<dd><p>Creates or updates a document in an index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>body</strong> – The document</p></li>
-<li><p><strong>id</strong> – Document ID</p></li>
-<li><p><strong>if_primary_term</strong> – only perform the index operation if the
-last operation that has changed the document has the specified primary
-term</p></li>
-<li><p><strong>if_seq_no</strong> – only perform the index operation if the last
-operation that has changed the document has the specified sequence
-number</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The document</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>if_primary_term</strong> – only perform the operation if the last
+operation that has changed the document has the specified primary term.</p></li>
+<li><p><strong>if_seq_no</strong> – only perform the operation if the last operation
+that has changed the document has the specified sequence number.</p></li>
 <li><p><strong>op_type</strong> – Explicit operation type. Defaults to <cite>index</cite> for
-requests with an explicit document ID, and to <a href="#id1"><span class="problematic" id="id2">`</span></a>create`for requests
-without an explicit document ID  Valid choices: index, create</p></li>
+requests with an explicit document ID, and to <cite>create</cite> for requests
+without an explicit document ID. Valid choices are index, create.</p></li>
 <li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
-with</p></li>
+with.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
 this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
 to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes.  Valid choices: true, false, wait_for</p></li>
+do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
 <li><p><strong>require_alias</strong> – When true, requires destination to be an
-alias. Default is false</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte</p></li>
+alias. Default is false.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the index operation. Defaults
-to 1, meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
+that must be active before proceeding with the operation. Defaults to 1,
+meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
 otherwise set to any non-negative value less than or equal to the total
-number of copies for the shard (number of replicas + 1)</p></li>
+number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -836,12 +1083,40 @@ number of copies for the shard (number of replicas + 1)</p></li>
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.info">
 <span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.info" title="Permalink to this definition"></a></dt>
 <dd><p>Returns basic information about the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.list_all_point_in_time">
-<span class="sig-name descname"><span class="pre">list_all_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.list_all_point_in_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.list_all_point_in_time" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">list_all_point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#opensearchpy.OpenSearch.list_all_point_in_time" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the list of active point in times searches</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This API will be removed in a future version.
+Use ‘get_all_pits’ API instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -851,26 +1126,33 @@ number of copies for the shard (number of replicas + 1)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – Document identifiers; can be either <cite>docs</cite>
-(containing full document information) or <cite>ids</cite> (when index and type is
-provided in the URL.</p></li>
-<li><p><strong>index</strong> – The name of the index</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document identifiers; can be either <cite>docs</cite>
+(containing full document information) or <cite>ids</cite> (when index is provided
+in the URL.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
+be performed on. Default is random.</p></li>
 <li><p><strong>realtime</strong> – Specify whether to perform the operation in
-realtime or search mode</p></li>
+realtime or search mode.</p></li>
 <li><p><strong>refresh</strong> – Refresh the shard containing the document before
-performing the operation</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>stored_fields</strong> – A comma-separated list of stored fields to
-return in the response</p></li>
+performing the operation.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
+return.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -882,33 +1164,41 @@ return in the response</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The request definitions (metadata-search request
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The request definitions (metadata-search request
 definition pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> – A comma-separated list of index names to use as
-default</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to use as default.</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
 trips should be minimized as part of cross-cluster search requests
-execution  Default: true</p></li>
+execution. Default is True.</p></li>
 <li><p><strong>max_concurrent_searches</strong> – Controls the maximum number of
-concurrent searches the multi search api will execute</p></li>
+concurrent searches the multi search api will execute.</p></li>
 <li><p><strong>max_concurrent_shard_requests</strong> – The number of concurrent
 shard requests each sub search executes concurrently per node. This
 value should be used to limit the impact of the search on the cluster in
-order to limit the number of concurrent shard requests  Default: 5</p></li>
-<li><p><strong>pre_filter_shard_size</strong> – A threshold that enforces a pre-
-filter roundtrip to prefilter search shards based on query rewriting if
-the number of shards the search request expands to exceeds the
-threshold. This filter roundtrip can limit the number of shards
-significantly if for instance a shard can not match any documents based
-on its rewrite method ie. if date filters are mandatory to match but the
-shard bounds and the query are disjoint.</p></li>
+order to limit the number of concurrent shard requests. Default is 5.</p></li>
+<li><p><strong>pre_filter_shard_size</strong> – Threshold that enforces a pre-filter
+round-trip to prefilter search shards based on query rewriting if the
+number of shards the search request expands to exceeds the threshold.
+This filter round-trip can limit the number of shards significantly if
+for instance a shard can not match any documents based on its rewrite
+method ie. if date filters are mandatory to match but the shard bounds
+and the query are disjoint.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response</p></li>
-<li><p><strong>search_type</strong> – Search operation type  Valid choices:
-query_then_fetch, dfs_query_then_fetch</p></li>
+be rendered as an integer or an object in the rest search response.
+Default is false.</p></li>
+<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+query_then_fetch, query_and_fetch, dfs_query_then_fetch,
+dfs_query_and_fetch.</p></li>
 <li><p><strong>typed_keys</strong> – Specify whether aggregation and suggester names
-should be prefixed by their respective types in the response</p></li>
+should be prefixed by their respective types in the response.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -920,22 +1210,30 @@ should be prefixed by their respective types in the response</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The request definitions (metadata-search request
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The request definitions (metadata-search request
 definition pairs), separated by newlines</p></li>
-<li><p><strong>index</strong> – A comma-separated list of index names to use as
-default</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices to use as default.</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
 trips should be minimized as part of cross-cluster search requests
-execution  Default: true</p></li>
+execution. Default is True.</p></li>
 <li><p><strong>max_concurrent_searches</strong> – Controls the maximum number of
-concurrent searches the multi search api will execute</p></li>
+concurrent searches the multi search api will execute.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response</p></li>
-<li><p><strong>search_type</strong> – Search operation type  Valid choices:
-query_then_fetch, dfs_query_then_fetch</p></li>
+be rendered as an integer or an object in the rest search response.
+Default is false.</p></li>
+<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+query_then_fetch, query_and_fetch, dfs_query_then_fetch,
+dfs_query_and_fetch.</p></li>
 <li><p><strong>typed_keys</strong> – Specify whether aggregation and suggester names
-should be prefixed by their respective types in the response</p></li>
+should be prefixed by their respective types in the response.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -947,42 +1245,49 @@ should be prefixed by their respective types in the response</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – Define ids, documents, parameters or a list of
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Define ids, documents, parameters or a list of
 parameters per document here. You must at least provide a list of
 document ids. See documentation.</p></li>
-<li><p><strong>index</strong> – The index in which the document resides.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The index in which the document resides.</p></li>
 <li><p><strong>field_statistics</strong> – Specifies if document count, sum of
 document frequencies and sum of total term frequencies should be
 returned. Applies to all returned documents unless otherwise specified
-in body “params” or “docs”.  Default: True</p></li>
-<li><p><strong>fields</strong> – A comma-separated list of fields to return. Applies
-to all returned documents unless otherwise specified in body “params” or
-“docs”.</p></li>
-<li><p><strong>ids</strong> – A comma-separated list of documents ids. You must
-define ids as parameter or set “ids” or “docs” in the request body</p></li>
+in body ‘params’ or ‘docs’. Default is True.</p></li>
+<li><p><strong>fields</strong> – Comma-separated list of fields to return. Applies
+to all returned documents unless otherwise specified in body ‘params’ or
+‘docs’.</p></li>
+<li><p><strong>ids</strong> – Comma-separated list of documents ids. You must define
+ids as parameter or set ‘ids’ or ‘docs’ in the request body.</p></li>
 <li><p><strong>offsets</strong> – Specifies if term offsets should be returned.
 Applies to all returned documents unless otherwise specified in body
-“params” or “docs”.  Default: True</p></li>
+‘params’ or ‘docs’. Default is True.</p></li>
 <li><p><strong>payloads</strong> – Specifies if term payloads should be returned.
 Applies to all returned documents unless otherwise specified in body
-“params” or “docs”.  Default: True</p></li>
+‘params’ or ‘docs’. Default is True.</p></li>
 <li><p><strong>positions</strong> – Specifies if term positions should be returned.
 Applies to all returned documents unless otherwise specified in body
-“params” or “docs”.  Default: True</p></li>
+‘params’ or ‘docs’. Default is True.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random) .Applies to all returned documents
-unless otherwise specified in body “params” or “docs”.</p></li>
+be performed on. Applies to all returned documents unless otherwise
+specified in body ‘params’ or ‘docs’. Default is random.</p></li>
 <li><p><strong>realtime</strong> – Specifies if requests are real-time as opposed to
-near-real-time (default: true).</p></li>
-<li><p><strong>routing</strong> – Specific routing value. Applies to all returned
-documents unless otherwise specified in body “params” or “docs”.</p></li>
+near-real-time. Default is True.</p></li>
+<li><p><strong>routing</strong> – Routing value. Applies to all returned documents
+unless otherwise specified in body ‘params’ or ‘docs’.</p></li>
 <li><p><strong>term_statistics</strong> – Specifies if total term frequency and
 document frequency should be returned. Applies to all returned documents
-unless otherwise specified in body “params” or “docs”.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte, force</p></li>
+unless otherwise specified in body ‘params’ or ‘docs’. Default is false.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -991,6 +1296,17 @@ internal, external, external_gte, force</p></li>
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.ping">
 <span class="sig-name descname"><span class="pre">ping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.ping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.ping" title="Permalink to this definition"></a></dt>
 <dd><p>Returns whether the cluster is running.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1000,13 +1316,24 @@ internal, external, external_gte, force</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> – Script ID</p></li>
-<li><p><strong>body</strong> – The document</p></li>
-<li><p><strong>context</strong> – Context name to compile script against</p></li>
-<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – use cluster_manager_timeout): Specify timeout for connection to master</p></li>
-<li><p><strong>cluster_manager_timeout</strong> – Specify timeout for connection to cluster_manager</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Script ID.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The document</p></li>
+<li><p><strong>context</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Script context.</p></li>
+<li><p><strong>cluster_manager_timeout</strong> – Operation timeout for connection
+to cluster-manager node.</p></li>
+<li><p><strong>(</strong><strong>Deprecated</strong> (<em>master_timeout</em>) – To promote inclusive language,
+use ‘cluster_manager_timeout’ instead.): Operation timeout for
+connection to master node.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>context</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1015,30 +1342,32 @@ internal, external, external_gte, force</p></li>
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.rank_eval">
 <span class="sig-name descname"><span class="pre">rank_eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.rank_eval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.rank_eval" title="Permalink to this definition"></a></dt>
 <dd><p>Allows to evaluate the quality of ranked search results over a set of typical
-search queries</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <strong>experimental</strong> so may include breaking changes
-or be removed in a future version</p>
-</div>
+search queries.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The ranking evaluation search definition, including
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The ranking evaluation search definition, including
 search requests, document ratings and ranking metric definition.</p></li>
-<li><p><strong>index</strong> – A comma-separated list of index names to search; use
-<cite>_all</cite> or empty string to perform the operation on all indices</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
-<li><p><strong>search_type</strong> – Search operation type  Valid choices:
-query_then_fetch, dfs_query_then_fetch</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
+<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+query_then_fetch, dfs_query_then_fetch.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1052,28 +1381,34 @@ fetching the documents from a remote cluster.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The search definition using the Query DSL and the
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition using the Query DSL and the
 prototype for the index request.</p></li>
 <li><p><strong>max_docs</strong> – Maximum number of documents to process (default:
-all documents)</p></li>
-<li><p><strong>refresh</strong> – Should the affected indexes be refreshed?</p></li>
-<li><p><strong>requests_per_second</strong> – The throttle to set on this request in
-sub-requests per second. -1 means no throttle.</p></li>
-<li><p><strong>scroll</strong> – Control how long to keep the search context alive
-Default: 5m</p></li>
+all documents).</p></li>
+<li><p><strong>refresh</strong> – Should the affected indexes be refreshed?.</p></li>
+<li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
+requests per second. -1 means no throttle. Default is 0.</p></li>
+<li><p><strong>scroll</strong> – Specify how long a consistent view of the index
+should be maintained for scrolled search.</p></li>
 <li><p><strong>slices</strong> – The number of slices this task should be divided
 into. Defaults to 1, meaning the task isn’t sliced into subtasks. Can be
-set to <cite>auto</cite>.  Default: 1</p></li>
+set to <cite>auto</cite>. Default is 1.</p></li>
 <li><p><strong>timeout</strong> – Time each individual bulk request should wait for
-shards that are unavailable.  Default: 1m</p></li>
+shards that are unavailable. Default is 1m.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the reindex operation.
-Defaults to 1, meaning the primary shard only. Set to <cite>all</cite> for all
-shard copies, otherwise set to any non-negative value less than or equal
-to the total number of copies for the shard (number of replicas + 1)</p></li>
-<li><p><strong>wait_for_completion</strong> – Should the request should block until
-the reindex is complete.  Default: True</p></li>
+that must be active before proceeding with the operation. Defaults to 1,
+meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
+otherwise set to any non-negative value less than or equal to the total
+number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning. Default is True.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1085,10 +1420,16 @@ the reindex is complete.  Default: True</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>task_id</strong> – The task id to rethrottle</p></li>
-<li><p><strong>requests_per_second</strong> – The throttle to set on this request in
-floating sub-requests per second. -1 means set no throttle.</p></li>
+<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The task id to rethrottle.</p></li>
+<li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
+requests per second. -1 means no throttle.</p></li>
+<li><p><strong>task_id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1100,9 +1441,16 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The search definition template and its params</p></li>
-<li><p><strong>id</strong> – The id of the stored search template</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition template and its params</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The id of the stored search template.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1110,15 +1458,18 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.OpenSearch.scripts_painless_execute">
 <span class="sig-name descname"><span class="pre">scripts_painless_execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.scripts_painless_execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.scripts_painless_execute" title="Permalink to this definition"></a></dt>
-<dd><p>Allows an arbitrary script to be executed and a result to be returned</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <strong>experimental</strong> so may include breaking changes
-or be removed in a future version</p>
-</div>
+<dd><p>Allows an arbitrary script to be executed and a result to be returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>body</strong> – The script to execute</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The script to execute</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1130,14 +1481,22 @@ or be removed in a future version</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The scroll ID if not passed by URL or query
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The scroll ID if not passed by URL or query
 parameter.</p></li>
-<li><p><strong>scroll_id</strong> – The scroll ID for scrolled search</p></li>
+<li><p><strong>scroll_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Scroll ID.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response</p></li>
+be rendered as an integer or an object in the rest search response.
+Default is false.</p></li>
 <li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search</p></li>
+should be maintained for scrolled search.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>scroll_id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1149,103 +1508,108 @@ should be maintained for scrolled search</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The search definition using the Query DSL</p></li>
-<li><p><strong>index</strong> – A comma-separated list of index names to search; use
-<cite>_all</cite> or empty string to perform the operation on all indices</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
 <li><p><strong>allow_partial_search_results</strong> – Indicate if an error should
-be returned if there is a partial search failure or timeout  Default:
-True</p></li>
+be returned if there is a partial search failure or timeout. Default is
+True.</p></li>
 <li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed (default: false)</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string</p></li>
+queries should be analyzed. Default is false.</p></li>
+<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
 <li><p><strong>batched_reduce_size</strong> – The number of shard results that
 should be reduced at once on the coordinating node. This value should be
 used as a protection mechanism to reduce the memory overhead per search
 request if the potential number of shards in the request can be large.
-Default: 512</p></li>
+Default is 512.</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
 trips should be minimized as part of cross-cluster search requests
-execution  Default: true</p></li>
+execution. Default is True.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR)  Valid choices: AND, OR  Default: OR</p></li>
+query (AND or OR). Valid choices are AND, OR.</p></li>
 <li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string</p></li>
-<li><p><strong>docvalue_fields</strong> – A comma-separated list of fields to return
-as the docvalue representation of a field for each hit</p></li>
+given in the query string.</p></li>
+<li><p><strong>docvalue_fields</strong> – Comma-separated list of fields to return
+as the docvalue representation of a field for each hit.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
 <li><p><strong>explain</strong> – Specify whether to return detailed information
-about score computation as part of a hit</p></li>
-<li><p><strong>from</strong> – Starting offset (default: 0)</p></li>
+about score computation as part of a hit.</p></li>
+<li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
 <li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded or
-aliased indices should be ignored when throttled</p></li>
+aliased indices should be ignored when throttled.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored</p></li>
+as providing text to a numeric field) should be ignored.</p></li>
 <li><p><strong>max_concurrent_shard_requests</strong> – The number of concurrent
 shard requests per node this search executes concurrently. This value
 should be used to limit the impact of the search on the cluster in order
-to limit the number of concurrent shard requests  Default: 5</p></li>
-<li><p><strong>min_compatible_shard_node</strong> – The minimum compatible version
-that all shards involved in search should have for this request to be
-successful</p></li>
-<li><p><strong>pre_filter_shard_size</strong> – A threshold that enforces a pre-
-filter roundtrip to prefilter search shards based on query rewriting if
-the number of shards the search request expands to exceeds the
-threshold. This filter roundtrip can limit the number of shards
-significantly if for instance a shard can not match any documents based
-on its rewrite method ie. if date filters are mandatory to match but the
-shard bounds and the query are disjoint.</p></li>
+to limit the number of concurrent shard requests. Default is 5.</p></li>
+<li><p><strong>pre_filter_shard_size</strong> – Threshold that enforces a pre-filter
+round-trip to prefilter search shards based on query rewriting if the
+number of shards the search request expands to exceeds the threshold.
+This filter round-trip can limit the number of shards significantly if
+for instance a shard can not match any documents based on its rewrite
+method ie. if date filters are mandatory to match but the shard bounds
+and the query are disjoint.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
-<li><p><strong>q</strong> – Query in the Lucene query string syntax</p></li>
+be performed on. Default is random.</p></li>
+<li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
 <li><p><strong>request_cache</strong> – Specify if request cache should be used for
-this request or not, defaults to index level setting</p></li>
+this request or not, defaults to index level setting.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response</p></li>
-<li><p><strong>routing</strong> – A comma-separated list of specific routing values</p></li>
+be rendered as an integer or an object in the rest search response.
+Default is false.</p></li>
+<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
 <li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search</p></li>
-<li><p><strong>search_type</strong> – Search operation type  Valid choices:
-query_then_fetch, dfs_query_then_fetch</p></li>
+should be maintained for scrolled search.</p></li>
+<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+query_then_fetch, dfs_query_then_fetch.</p></li>
 <li><p><strong>seq_no_primary_term</strong> – Specify whether to return sequence
-number and primary term of the last modification of each hit</p></li>
-<li><p><strong>size</strong> – Number of hits to return (default: 10)</p></li>
-<li><p><strong>sort</strong> – A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs</p></li>
+number and primary term of the last modification of each hit.</p></li>
+<li><p><strong>size</strong> – Number of hits to return. Default is 10.</p></li>
+<li><p><strong>sort</strong> – Comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
 <li><p><strong>stats</strong> – Specific ‘tag’ of the request for logging and
-statistical purposes</p></li>
-<li><p><strong>stored_fields</strong> – A comma-separated list of stored fields to
-return as part of a hit</p></li>
-<li><p><strong>suggest_field</strong> – Specify which field to use for suggestions</p></li>
-<li><p><strong>suggest_mode</strong> – Specify suggest mode  Valid choices: missing,
-popular, always  Default: missing</p></li>
-<li><p><strong>suggest_size</strong> – How many suggestions to return in response</p></li>
+statistical purposes.</p></li>
+<li><p><strong>stored_fields</strong> – Comma-separated list of stored fields to
+return.</p></li>
+<li><p><strong>suggest_field</strong> – Specify which field to use for suggestions.</p></li>
+<li><p><strong>suggest_mode</strong> – Specify suggest mode. Valid choices are
+missing, popular, always.</p></li>
+<li><p><strong>suggest_size</strong> – How many suggestions to return in response.</p></li>
 <li><p><strong>suggest_text</strong> – The source text for which the suggestions
-should be returned</p></li>
+should be returned.</p></li>
 <li><p><strong>terminate_after</strong> – The maximum number of documents to collect
 for each shard, upon reaching which the query execution will terminate
 early.</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>track_scores</strong> – Whether to calculate and return scores even
-if they are not used for sorting</p></li>
+if they are not used for sorting.</p></li>
 <li><p><strong>track_total_hits</strong> – Indicate if the number of documents that
-match the query should be tracked</p></li>
+match the query should be tracked.</p></li>
 <li><p><strong>typed_keys</strong> – Specify whether aggregation and suggester names
-should be prefixed by their respective types in the response</p></li>
-<li><p><strong>version</strong> – Specify whether to return document version as part
-of a hit</p></li>
+should be prefixed by their respective types in the response.</p></li>
+<li><p><strong>version</strong> – Whether to return document version as part of a
+hit.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1258,22 +1622,28 @@ executed against.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to search; use
-<cite>_all</cite> or empty string to perform the operation on all indices</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>local</strong> – Return local information, do not retrieve the state
-from cluster_manager node (default: false)</p></li>
+from cluster-manager node. Default is false.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
+be performed on. Default is random.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1285,60 +1655,46 @@ be performed on (default: random)</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>body</strong> – The search definition template and its params</p></li>
-<li><p><strong>index</strong> – A comma-separated list of index names to search; use
-<cite>_all</cite> or empty string to perform the operation on all indices</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition template and its params</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
 <li><p><strong>ccs_minimize_roundtrips</strong> – Indicates whether network round-
 trips should be minimized as part of cross-cluster search requests
-execution  Default: true</p></li>
+execution. Default is True.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
 <li><p><strong>explain</strong> – Specify whether to return detailed information
-about score computation as part of a hit</p></li>
+about score computation as part of a hit.</p></li>
 <li><p><strong>ignore_throttled</strong> – Whether specified concrete, expanded or
-aliased indices should be ignored when throttled</p></li>
+aliased indices should be ignored when throttled.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
-<li><p><strong>profile</strong> – Specify whether to profile the query execution</p></li>
+be performed on. Default is random.</p></li>
+<li><p><strong>profile</strong> – Specify whether to profile the query execution.</p></li>
 <li><p><strong>rest_total_hits_as_int</strong> – Indicates whether hits.total should
-be rendered as an integer or an object in the rest search response</p></li>
-<li><p><strong>routing</strong> – A comma-separated list of specific routing values</p></li>
+be rendered as an integer or an object in the rest search response.
+Default is false.</p></li>
+<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
 <li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search</p></li>
-<li><p><strong>search_type</strong> – Search operation type  Valid choices:
-query_then_fetch, dfs_query_then_fetch</p></li>
+should be maintained for scrolled search.</p></li>
+<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+query_then_fetch, query_and_fetch, dfs_query_then_fetch,
+dfs_query_and_fetch.</p></li>
 <li><p><strong>typed_keys</strong> – Specify whether aggregation and suggester names
-should be prefixed by their respective types in the response</p></li>
+should be prefixed by their respective types in the response.</p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="opensearchpy.OpenSearch.terms_enum">
-<span class="sig-name descname"><span class="pre">terms_enum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client.html#OpenSearch.terms_enum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.OpenSearch.terms_enum" title="Permalink to this definition"></a></dt>
-<dd><p>The terms enum API  can be used to discover terms in the index that begin with
-the provided string. It is designed for low-latency look-ups used in auto-
-complete scenarios.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This API is <strong>beta</strong> so may include breaking changes
-or be removed in a future version</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to search; use
-<cite>_all</cite> or empty string to perform the operation on all indices</p></li>
-<li><p><strong>body</strong> – field name, string which is the prefix expected in
-matching terms, timeout and size for max number of results</p></li>
-</ul>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1351,32 +1707,40 @@ document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The index in which the document resides.</p></li>
-<li><p><strong>body</strong> – Define parameters and or supply a document to get
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The index in which the document resides.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Define parameters and or supply a document to get
 termvectors for. See documentation.</p></li>
-<li><p><strong>id</strong> – The id of the document, when not specified a doc param
-should be supplied.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID. When not specified a doc param should be
+supplied.</p></li>
 <li><p><strong>field_statistics</strong> – Specifies if document count, sum of
 document frequencies and sum of total term frequencies should be
-returned.  Default: True</p></li>
-<li><p><strong>fields</strong> – A comma-separated list of fields to return.</p></li>
+returned. Default is True.</p></li>
+<li><p><strong>fields</strong> – Comma-separated list of fields to return.</p></li>
 <li><p><strong>offsets</strong> – Specifies if term offsets should be returned.
-Default: True</p></li>
+Default is True.</p></li>
 <li><p><strong>payloads</strong> – Specifies if term payloads should be returned.
-Default: True</p></li>
+Default is True.</p></li>
 <li><p><strong>positions</strong> – Specifies if term positions should be returned.
-Default: True</p></li>
+Default is True.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random).</p></li>
+be performed on. Default is random.</p></li>
 <li><p><strong>realtime</strong> – Specifies if request is real-time as opposed to
-near-real-time (default: true).</p></li>
-<li><p><strong>routing</strong> – Specific routing value.</p></li>
+near-real-time. Default is True.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
 <li><p><strong>term_statistics</strong> – Specifies if total term frequency and
-document frequency should be returned.</p></li>
-<li><p><strong>version</strong> – Explicit version number for concurrency control</p></li>
-<li><p><strong>version_type</strong> – Specific version type  Valid choices:
-internal, external, external_gte, force</p></li>
+document frequency should be returned. Default is false.</p></li>
+<li><p><strong>version</strong> – Explicit version number for concurrency control.</p></li>
+<li><p><strong>version_type</strong> – Specific version type. Valid choices are
+internal, external, external_gte, force.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1388,39 +1752,45 @@ internal, external, external_gte, force</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – The name of the index</p></li>
-<li><p><strong>id</strong> – Document ID</p></li>
-<li><p><strong>body</strong> – The request definition requires either <cite>script</cite> or
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Index name.</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Document ID.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The request definition requires either <cite>script</cite> or
 partial <cite>doc</cite></p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
-<li><p><strong>if_primary_term</strong> – only perform the update operation if the
-last operation that has changed the document has the specified primary
-term</p></li>
-<li><p><strong>if_seq_no</strong> – only perform the update operation if the last
-operation that has changed the document has the specified sequence
-number</p></li>
-<li><p><strong>lang</strong> – The script language (default: painless)</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
+<li><p><strong>if_primary_term</strong> – only perform the operation if the last
+operation that has changed the document has the specified primary term.</p></li>
+<li><p><strong>if_seq_no</strong> – only perform the operation if the last operation
+that has changed the document has the specified sequence number.</p></li>
+<li><p><strong>lang</strong> – The script language. Default is painless.</p></li>
 <li><p><strong>refresh</strong> – If <cite>true</cite> then refresh the affected shards to make
 this operation visible to search, if <cite>wait_for</cite> then wait for a refresh
 to make this operation visible to search, if <cite>false</cite> (the default) then
-do nothing with refreshes.  Valid choices: true, false, wait_for</p></li>
-<li><p><strong>require_alias</strong> – When true, requires destination is an alias.
-Default is false</p></li>
+do nothing with refreshes. Valid choices are true, false, wait_for.</p></li>
+<li><p><strong>require_alias</strong> – When true, requires destination to be an
+alias. Default is false.</p></li>
 <li><p><strong>retry_on_conflict</strong> – Specify how many times should the
-operation be retried when a conflict occurs (default: 0)</p></li>
-<li><p><strong>routing</strong> – Specific routing value</p></li>
-<li><p><strong>timeout</strong> – Explicit operation timeout</p></li>
+operation be retried when a conflict occurs. Default is 0.</p></li>
+<li><p><strong>routing</strong> – Routing value.</p></li>
+<li><p><strong>timeout</strong> – Operation timeout.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the update operation.
-Defaults to 1, meaning the primary shard only. Set to <cite>all</cite> for all
-shard copies, otherwise set to any non-negative value less than or equal
-to the total number of copies for the shard (number of replicas + 1)</p></li>
+that must be active before proceeding with the operation. Defaults to 1,
+meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
+otherwise set to any non-negative value less than or equal to the total
+number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>id</strong> – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1433,82 +1803,85 @@ for example to pick up a mapping change.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index</strong> – A comma-separated list of index names to search; use
-<cite>_all</cite> or empty string to perform the operation on all indices</p></li>
-<li><p><strong>body</strong> – The search definition using the Query DSL
-search; leave empty to perform the operation on all types</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – Comma-separated list of indices; use <cite>_all</cite> or empty
+string to perform the operation on all indices.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The search definition using the Query DSL</p></li>
 <li><p><strong>_source</strong> – True or false to return the _source field or not,
-or a list of fields to return</p></li>
-<li><p><strong>_source_excludes</strong> – A list of fields to exclude from the
-returned _source field</p></li>
-<li><p><strong>_source_includes</strong> – A list of fields to extract and return
-from the _source field</p></li>
+or a list of fields to return.</p></li>
+<li><p><strong>_source_excludes</strong> – List of fields to exclude from the
+returned _source field.</p></li>
+<li><p><strong>_source_includes</strong> – List of fields to extract and return from
+the _source field.</p></li>
 <li><p><strong>allow_no_indices</strong> – Whether to ignore if a wildcard indices
 expression resolves into no concrete indices. (This includes <cite>_all</cite>
-string or when no indices have been specified)</p></li>
+string or when no indices have been specified).</p></li>
 <li><p><strong>analyze_wildcard</strong> – Specify whether wildcard and prefix
-queries should be analyzed (default: false)</p></li>
-<li><p><strong>analyzer</strong> – The analyzer to use for the query string</p></li>
-<li><p><strong>conflicts</strong> – What to do when the update by query hits version
-conflicts?  Valid choices: abort, proceed  Default: abort</p></li>
+queries should be analyzed. Default is false.</p></li>
+<li><p><strong>analyzer</strong> – The analyzer to use for the query string.</p></li>
+<li><p><strong>conflicts</strong> – What to do when the operation encounters version
+conflicts?. Valid choices are abort, proceed.</p></li>
 <li><p><strong>default_operator</strong> – The default operator for query string
-query (AND or OR)  Valid choices: AND, OR  Default: OR</p></li>
+query (AND or OR). Valid choices are AND, OR.</p></li>
 <li><p><strong>df</strong> – The field to use as default where no field prefix is
-given in the query string</p></li>
+given in the query string.</p></li>
 <li><p><strong>expand_wildcards</strong> – Whether to expand wildcard expression to
-concrete indices that are open, closed or both.  Valid choices: open,
-closed, hidden, none, all  Default: open</p></li>
-<li><p><strong>from</strong> – Starting offset (default: 0)</p></li>
+concrete indices that are open, closed or both. Valid choices are all,
+open, closed, hidden, none.</p></li>
+<li><p><strong>from</strong> – Starting offset. Default is 0.</p></li>
 <li><p><strong>ignore_unavailable</strong> – Whether specified concrete indices
-should be ignored when unavailable (missing or closed)</p></li>
+should be ignored when unavailable (missing or closed).</p></li>
 <li><p><strong>lenient</strong> – Specify whether format-based query failures (such
-as providing text to a numeric field) should be ignored</p></li>
+as providing text to a numeric field) should be ignored.</p></li>
 <li><p><strong>max_docs</strong> – Maximum number of documents to process (default:
-all documents)</p></li>
-<li><p><strong>pipeline</strong> – Ingest pipeline to set on index requests made by
-this action. (default: none)</p></li>
+all documents).</p></li>
+<li><p><strong>pipeline</strong> – The pipeline id to preprocess incoming documents
+with.</p></li>
 <li><p><strong>preference</strong> – Specify the node or shard the operation should
-be performed on (default: random)</p></li>
-<li><p><strong>q</strong> – Query in the Lucene query string syntax</p></li>
-<li><p><strong>refresh</strong> – Should the affected indexes be refreshed?</p></li>
+be performed on. Default is random.</p></li>
+<li><p><strong>q</strong> – Query in the Lucene query string syntax.</p></li>
+<li><p><strong>refresh</strong> – Should the affected indexes be refreshed?.</p></li>
 <li><p><strong>request_cache</strong> – Specify if request cache should be used for
-this request or not, defaults to index level setting</p></li>
-<li><p><strong>requests_per_second</strong> – The throttle to set on this request in
-sub-requests per second. -1 means no throttle.</p></li>
-<li><p><strong>routing</strong> – A comma-separated list of specific routing values</p></li>
+this request or not, defaults to index level setting.</p></li>
+<li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
+requests per second. -1 means no throttle. Default is 0.</p></li>
+<li><p><strong>routing</strong> – Comma-separated list of specific routing values.</p></li>
 <li><p><strong>scroll</strong> – Specify how long a consistent view of the index
-should be maintained for scrolled search</p></li>
-<li><p><strong>scroll_size</strong> – Size on the scroll request powering the update
-by query  Default: 100</p></li>
+should be maintained for scrolled search.</p></li>
+<li><p><strong>scroll_size</strong> – Size on the scroll request powering the
+operation. Default is 100.</p></li>
 <li><p><strong>search_timeout</strong> – Explicit timeout for each search request.
 Defaults to no timeout.</p></li>
-<li><p><strong>search_type</strong> – Search operation type  Valid choices:
-query_then_fetch, dfs_query_then_fetch</p></li>
-<li><p><strong>size</strong> – Deprecated, please use <cite>max_docs</cite> instead</p></li>
+<li><p><strong>search_type</strong> – Search operation type. Valid choices are
+query_then_fetch, dfs_query_then_fetch.</p></li>
+<li><p><strong>size</strong> – Deprecated, please use <cite>max_docs</cite> instead.</p></li>
 <li><p><strong>slices</strong> – The number of slices this task should be divided
 into. Defaults to 1, meaning the task isn’t sliced into subtasks. Can be
-set to <cite>auto</cite>.  Default: 1</p></li>
-<li><p><strong>sort</strong> – A comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs</p></li>
+set to <cite>auto</cite>. Default is 1.</p></li>
+<li><p><strong>sort</strong> – Comma-separated list of &lt;field&gt;:&lt;direction&gt; pairs.</p></li>
 <li><p><strong>stats</strong> – Specific ‘tag’ of the request for logging and
-statistical purposes</p></li>
+statistical purposes.</p></li>
 <li><p><strong>terminate_after</strong> – The maximum number of documents to collect
 for each shard, upon reaching which the query execution will terminate
 early.</p></li>
 <li><p><strong>timeout</strong> – Time each individual bulk request should wait for
-shards that are unavailable.  Default: 1m</p></li>
-<li><p><strong>version</strong> – Specify whether to return document version as part
-of a hit</p></li>
-<li><p><strong>version_type</strong> – Should the document increment the version
-number (internal) on hit or not (reindex)</p></li>
+shards that are unavailable. Default is 1m.</p></li>
+<li><p><strong>version</strong> – Whether to return document version as part of a
+hit.</p></li>
 <li><p><strong>wait_for_active_shards</strong> – Sets the number of shard copies
-that must be active before proceeding with the update by query
-operation. Defaults to 1, meaning the primary shard only. Set to <cite>all</cite>
-for all shard copies, otherwise set to any non-negative value less than
-or equal to the total number of copies for the shard (number of replicas
-+ 1)</p></li>
-<li><p><strong>wait_for_completion</strong> – Should the request should block until
-the update by query operation is complete.  Default: True</p></li>
+that must be active before proceeding with the operation. Defaults to 1,
+meaning the primary shard only. Set to <cite>all</cite> for all shard copies,
+otherwise set to any non-negative value less than or equal to the total
+number of copies for the shard (number of replicas + 1). Default is 1.</p></li>
+<li><p><strong>wait_for_completion</strong> – Should this request wait until the
+operation has completed before returning. Default is True.</p></li>
+<li><p><strong>index</strong> – </p></li>
+<li><p><strong>body</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1521,10 +1894,16 @@ operation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>task_id</strong> – The task id to rethrottle</p></li>
-<li><p><strong>requests_per_second</strong> – The throttle to set on this request in
-floating sub-requests per second. -1 means set no throttle.</p></li>
+<li><p><strong>task_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – The task id to rethrottle.</p></li>
+<li><p><strong>requests_per_second</strong> – The throttle for this request in sub-
+requests per second. -1 means no throttle.</p></li>
+<li><p><strong>task_id</strong> – </p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1538,7 +1917,7 @@ floating sub-requests per second. -1 means set no throttle.</p></li>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../client.html" class="btn btn-neutral float-left" title="Clients" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="cat_client.html" class="btn btn-neutral float-right" title="Compact and aligned text (CAT) Client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="http_client.html" class="btn btn-neutral float-right" title="Http Client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

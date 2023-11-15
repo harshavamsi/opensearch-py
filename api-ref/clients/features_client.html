@@ -53,6 +53,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../client.html">Clients</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="opensearch_client.html">OpenSearch Client</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../client.html#clients-within-opensearch">Clients within Opensearch</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="http_client.html">Http Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cat_client.html">Compact and aligned text (CAT) Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cluster_client.html">Cluster Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dangling_indices_client.html">Dangling Indices Client</a></li>
@@ -60,6 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="indices_client.html">Indices Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nodes_client.html">Nodes Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="remote_client.html">Remote Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="security_client.html">Security Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="snapshot_client.html">Snapshot Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tasks_client.html">Tasks Client</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Features Client</a></li>
@@ -116,6 +118,11 @@
 <dt class="sig sig-object py" id="opensearchpy.client.features.FeaturesClient">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opensearchpy.client.features.</span></span><span class="sig-name descname"><span class="pre">FeaturesClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/features.html#FeaturesClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.features.FeaturesClient" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamespacedClient</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>client</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="opensearchpy.client.features.FeaturesClient.get_features">
 <span class="sig-name descname"><span class="pre">get_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/opensearchpy/client/features.html#FeaturesClient.get_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opensearchpy.client.features.FeaturesClient.get_features" title="Permalink to this definition"></a></dt>
@@ -128,7 +135,12 @@ feature_states field when creating a snapshot</p>
 to master node</p></li>
 <li><p><strong>cluster_manager_timeout</strong> – Explicit operation timeout for connection
 to cluster_manager node</p></li>
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -142,6 +154,17 @@ to cluster_manager node</p></li>
 <p>This API is <strong>experimental</strong> so may include breaking changes
 or be removed in a future version</p>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

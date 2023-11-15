@@ -80,7 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.helpers.function</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -106,21 +107,19 @@
 <span class="c1">#  specific language governing permissions and limitations</span>
 <span class="c1">#  under the License.</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections_abc</span>  <span class="c1"># only works on python 3.3+</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">collections</span> <span class="k">as</span> <span class="nn">collections_abc</span>
+<span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections_abc</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">DslBase</span>
 
 
-<span class="k">def</span> <span class="nf">SF</span><span class="p">(</span><span class="n">name_or_sf</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">SF</span><span class="p">(</span><span class="n">name_or_sf</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="c1"># {&quot;script_score&quot;: {&quot;script&quot;: &quot;_score&quot;}, &quot;filter&quot;: {}}</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_or_sf</span><span class="p">,</span> <span class="n">collections_abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;SF() cannot accept parameters when passing in a dict.&quot;</span><span class="p">)</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">sf</span> <span class="o">=</span> <span class="n">name_or_sf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">sf</span> <span class="o">=</span> <span class="n">name_or_sf</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ScoreFunction</span><span class="o">.</span><span class="n">_param_defs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">name_or_sf</span><span class="p">:</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
@@ -155,16 +154,16 @@
 
 
 <div class="viewcode-block" id="ScoreFunction"><a class="viewcode-back" href="../../../api-ref/helpers/function.html#opensearchpy.helpers.function.ScoreFunction">[docs]</a><span class="k">class</span> <span class="nc">ScoreFunction</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
-    <span class="n">_type_name</span> <span class="o">=</span> <span class="s2">&quot;score_function&quot;</span>
+    <span class="n">_type_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;score_function&quot;</span>
     <span class="n">_type_shortcut</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">SF</span><span class="p">)</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span>
         <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span>
         <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="p">{},</span>
     <span class="p">}</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="ScoreFunction.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/function.html#opensearchpy.helpers.function.ScoreFunction.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ScoreFunction.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/function.html#opensearchpy.helpers.function.ScoreFunction.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ScoreFunction</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="c1"># filter and query dicts should be at the same level as us</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_defs</span><span class="p">:</span>
@@ -180,7 +179,7 @@
 <span class="k">class</span> <span class="nc">BoostFactor</span><span class="p">(</span><span class="n">ScoreFunction</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;boost_factor&quot;</span>
 
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">BoostFactor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;value&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]:</span>
             <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>

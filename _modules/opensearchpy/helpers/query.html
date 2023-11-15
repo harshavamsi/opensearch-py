@@ -80,7 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.helpers.query</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -106,21 +107,17 @@
 <span class="c1">#  specific language governing permissions and limitations</span>
 <span class="c1">#  under the License.</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections_abc</span>  <span class="c1"># only works on python 3.3+</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">collections</span> <span class="k">as</span> <span class="nn">collections_abc</span>
-
+<span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections_abc</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="c1"># &#39;SF&#39; looks unused but the test suite assumes it&#39;s available</span>
 <span class="c1"># from this module so others are liable to do so as well.</span>
-<span class="kn">from</span> <span class="nn">..helpers.function</span> <span class="kn">import</span> <span class="n">SF</span>  <span class="c1"># noqa: F401</span>
-<span class="kn">from</span> <span class="nn">..helpers.function</span> <span class="kn">import</span> <span class="n">ScoreFunction</span>
+<span class="kn">from</span> <span class="nn">..helpers.function</span> <span class="kn">import</span> <span class="n">SF</span><span class="p">,</span> <span class="n">ScoreFunction</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">DslBase</span>
 
 
-<span class="k">def</span> <span class="nf">Q</span><span class="p">(</span><span class="n">name_or_query</span><span class="o">=</span><span class="s2">&quot;match_all&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">Q</span><span class="p">(</span><span class="n">name_or_query</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="s2">&quot;match_all&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="c1"># {&quot;match&quot;: {&quot;title&quot;: &quot;python&quot;}}</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_or_query</span><span class="p">,</span> <span class="n">collections_abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
@@ -130,7 +127,7 @@
                 <span class="s1">&#39;Q() can only accept dict with a single query ({&quot;match&quot;: {...}}). &#39;</span>
                 <span class="s2">&quot;Instead it got (</span><span class="si">%r</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">name_or_query</span>
             <span class="p">)</span>
-        <span class="n">name</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">name_or_query</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">popitem</span><span class="p">()</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">name_or_query</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">popitem</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
         <span class="k">return</span> <span class="n">Query</span><span class="o">.</span><span class="n">get_dsl_class</span><span class="p">(</span><span class="n">name</span><span class="p">)(</span><span class="n">_expand__to_dot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
     <span class="c1"># MatchAll()</span>
@@ -150,28 +147,28 @@
 
 
 <div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../../api-ref/helpers/query.html#opensearchpy.helpers.query.Query">[docs]</a><span class="k">class</span> <span class="nc">Query</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
-    <span class="n">_type_name</span> <span class="o">=</span> <span class="s2">&quot;query&quot;</span>
+    <span class="n">_type_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;query&quot;</span>
     <span class="n">_type_shortcut</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># make sure we give queries that know how to combine themselves</span>
         <span class="c1"># preference</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;__radd__&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">must</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">must_not</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># make sure we give queries that know how to combine themselves</span>
         <span class="c1"># preference</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;__ror__&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">should</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># make sure we give queries that know how to combine themselves</span>
         <span class="c1"># preference</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;__rand__&quot;</span><span class="p">):</span>
@@ -182,17 +179,17 @@
 <span class="k">class</span> <span class="nc">MatchAll</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;match_all&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
 
     <span class="fm">__and__</span> <span class="o">=</span> <span class="fm">__rand__</span> <span class="o">=</span> <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MatchAll&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="fm">__ror__</span> <span class="o">=</span> <span class="fm">__or__</span>
 
-    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">MatchNone</span><span class="p">()</span>
 
 
@@ -202,17 +199,17 @@
 <span class="k">class</span> <span class="nc">MatchNone</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;match_none&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MatchNone&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="fm">__and__</span> <span class="o">=</span> <span class="fm">__rand__</span> <span class="o">=</span> <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
 
     <span class="fm">__ror__</span> <span class="o">=</span> <span class="fm">__or__</span>
 
-    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">MatchAll</span><span class="p">()</span>
 
 
@@ -225,7 +222,7 @@
         <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Bool</span><span class="p">):</span>
             <span class="n">q</span><span class="o">.</span><span class="n">must</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">must</span>
@@ -238,7 +235,7 @@
 
     <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">Bool</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">must</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">must_not</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="s2">&quot;minimum_should_match&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
@@ -263,14 +260,14 @@
     <span class="fm">__ror__</span> <span class="o">=</span> <span class="fm">__or__</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_min_should_match</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_min_should_match</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="s2">&quot;minimum_should_match&quot;</span><span class="p">,</span>
             <span class="mi">0</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">should</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">must</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">)</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="c1"># Because an empty Bool query is treated like</span>
         <span class="c1"># MatchAll the inverse should be MatchNone</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">must</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">should</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">must_not</span><span class="p">)):</span>
@@ -290,7 +287,7 @@
             <span class="k">return</span> <span class="n">negations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">Bool</span><span class="p">(</span><span class="n">should</span><span class="o">=</span><span class="n">negations</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Bool&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Bool</span><span class="p">):</span>
             <span class="n">q</span><span class="o">.</span><span class="n">must</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">must</span>
@@ -337,7 +334,7 @@
         <span class="s2">&quot;functions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;score_function&quot;</span><span class="p">,</span> <span class="s2">&quot;multi&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;functions&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
@@ -605,6 +602,9 @@
 
 <span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="n">Query</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;wrapper&quot;</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SF&quot;</span><span class="p">]</span>
 </pre></div>
 
            </div>

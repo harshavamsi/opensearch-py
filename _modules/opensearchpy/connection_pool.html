@@ -80,7 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.connection_pool</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -111,15 +112,13 @@
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Empty</span><span class="p">,</span> <span class="n">PriorityQueue</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">Queue</span> <span class="kn">import</span> <span class="n">Empty</span><span class="p">,</span> <span class="n">PriorityQueue</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">PriorityQueue</span><span class="p">,</span> <span class="n">Empty</span>
-
+<span class="kn">from</span> <span class="nn">.connection</span> <span class="kn">import</span> <span class="n">Connection</span>
 <span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;opensearch&quot;</span><span class="p">)</span>
+<span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;opensearch&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ConnectionSelector"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionSelector">[docs]</a><span class="k">class</span> <span class="nc">ConnectionSelector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -137,17 +136,17 @@
 <span class="sd">    process it will be the dictionary returned by the `host_info_callback`.</span>
 
 <span class="sd">    Example of where this would be useful is a zone-aware selector that would</span>
-<span class="sd">    only select connections from it&#39;s own zones and only fall back to other</span>
-<span class="sd">    connections where there would be none in it&#39;s zones.</span>
+<span class="sd">    only select connections from its own zones and only fall back to other</span>
+<span class="sd">    connections where there would be none in its zones.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Connection</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :arg opts: dictionary of connection instances and their options</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection_opts</span> <span class="o">=</span> <span class="n">opts</span>
 
-<div class="viewcode-block" id="ConnectionSelector.select"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionSelector.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionSelector.select"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionSelector.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Connection</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Select a connection from the given list.</span>
 
@@ -161,7 +160,7 @@
 <span class="sd">    Select a connection at random</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Connection</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
 
 
@@ -170,11 +169,11 @@
 <span class="sd">    Selector using round-robin.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opts</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Connection</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">RoundRobinSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">local</span><span class="p">()</span>
 
-<div class="viewcode-block" id="RoundRobinSelector.select"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.RoundRobinSelector.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">):</span>
+<div class="viewcode-block" id="RoundRobinSelector.select"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.RoundRobinSelector.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Connection</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;rr&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rr</span> <span class="o">%=</span> <span class="nb">len</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connections</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rr</span><span class="p">]</span></div></div>
@@ -194,7 +193,7 @@
 <span class="sd">    future reference.</span>
 
 <span class="sd">    Upon each request the `Transport` will ask for a `Connection` via the</span>
-<span class="sd">    `get_connection` method. If the connection fails (it&#39;s `perform_request`</span>
+<span class="sd">    `get_connection` method. If the connection fails (its `perform_request`</span>
 <span class="sd">    raises a `ConnectionError`) it will be marked as dead (via `mark_dead`) and</span>
 <span class="sd">    put on a timeout (if it fails N times in a row the timeout is exponentially</span>
 <span class="sd">    longer - the formula is `default_timeout * 2 ** (fail_count - 1)`). When</span>
@@ -203,18 +202,27 @@
 <span class="sd">    succeeds will be marked as live (its fail count will be deleted).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">connections_opts</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Connection</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="n">connections</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">orig_connections</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Connection</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">dead</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">dead_count</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">dead_timeout</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">timeout_cutoff</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">selector</span><span class="p">:</span> <span class="n">Any</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">connections</span><span class="p">,</span>
-        <span class="n">dead_timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-        <span class="n">timeout_cutoff</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="n">selector_class</span><span class="o">=</span><span class="n">RoundRobinSelector</span><span class="p">,</span>
-        <span class="n">randomize_hosts</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">):</span>
+        <span class="n">connections</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">dead_timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="n">timeout_cutoff</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">selector_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ConnectionSelector</span><span class="p">]</span> <span class="o">=</span> <span class="n">RoundRobinSelector</span><span class="p">,</span>
+        <span class="n">randomize_hosts</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :arg connections: list of tuples containing the</span>
-<span class="sd">            :class:`~opensearchpy.Connection` instance and it&#39;s options</span>
+<span class="sd">            :class:`~opensearchpy.Connection` instance and its options</span>
 <span class="sd">        :arg dead_timeout: number of seconds a connection should be retired for</span>
 <span class="sd">            after a failure, increases on consecutive failures</span>
 <span class="sd">        :arg timeout_cutoff: number of consecutive failures after which the</span>
@@ -245,9 +253,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dead_timeout</span> <span class="o">=</span> <span class="n">dead_timeout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timeout_cutoff</span> <span class="o">=</span> <span class="n">timeout_cutoff</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span> <span class="o">=</span> <span class="n">selector_class</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">connections</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span> <span class="o">=</span> <span class="n">selector_class</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">connections</span><span class="p">))</span>  <span class="c1"># type: ignore</span>
 
-<div class="viewcode-block" id="ConnectionPool.mark_dead"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.mark_dead">[docs]</a>    <span class="k">def</span> <span class="nf">mark_dead</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">now</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPool.mark_dead"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.mark_dead">[docs]</a>    <span class="k">def</span> <span class="nf">mark_dead</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">now</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mark the connection as dead (failed). Remove it from the live pool and</span>
 <span class="sd">        put it on a timeout.</span>
@@ -277,7 +285,7 @@
                 <span class="n">timeout</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ConnectionPool.mark_live"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.mark_live">[docs]</a>    <span class="k">def</span> <span class="nf">mark_live</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPool.mark_live"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.mark_live">[docs]</a>    <span class="k">def</span> <span class="nf">mark_live</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mark connection as healthy after a resurrection. Resets the fail</span>
 <span class="sd">        counter for the connection.</span>
@@ -290,10 +298,10 @@
             <span class="c1"># race condition, safe to ignore</span>
             <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="ConnectionPool.resurrect"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.resurrect">[docs]</a>    <span class="k">def</span> <span class="nf">resurrect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPool.resurrect"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.resurrect">[docs]</a>    <span class="k">def</span> <span class="nf">resurrect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Attempt to resurrect a connection from the dead pool. It will try to</span>
-<span class="sd">        locate one (not all) eligible (it&#39;s timeout is over) connection to</span>
+<span class="sd">        locate one (not all) eligible (its timeout is over) connection to</span>
 <span class="sd">        return to the live pool. Any resurrected connection is also returned.</span>
 
 <span class="sd">        :arg force: resurrect a connection even if there is none eligible (used</span>
@@ -327,12 +335,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">dead</span><span class="o">.</span><span class="n">put</span><span class="p">((</span><span class="n">timeout</span><span class="p">,</span> <span class="n">connection</span><span class="p">))</span>
             <span class="k">return</span>
 
-        <span class="c1"># either we were forced or the connection is elligible to be retried</span>
+        <span class="c1"># either we were forced or the connection is eligible to be retried</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">connection</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Resurrecting connection </span><span class="si">%r</span><span class="s2"> (force=</span><span class="si">%s</span><span class="s2">).&quot;</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connection</span></div>
 
-<div class="viewcode-block" id="ConnectionPool.get_connection"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.get_connection">[docs]</a>    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPool.get_connection"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.get_connection">[docs]</a>    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a connection from the pool using the `ConnectionSelector`</span>
 <span class="sd">        instance.</span>
@@ -341,7 +349,7 @@
 <span class="sd">        no connections are available and passes the list of live connections to</span>
 <span class="sd">        the selector instance to choose from.</span>
 
-<span class="sd">        Returns a connection instance and it&#39;s current fail count.</span>
+<span class="sd">        Returns a connection instance and its current fail count.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resurrect</span><span class="p">()</span>
         <span class="n">connections</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">[:]</span>
@@ -357,38 +365,38 @@
         <span class="c1"># only one connection, no need for a selector</span>
         <span class="k">return</span> <span class="n">connections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="ConnectionPool.close"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPool.close"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly closes connections</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">:</span>
             <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ConnectionPool.__repr__"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPool.__repr__"><a class="viewcode-back" href="../../api-ref/connection_pool.html#opensearchpy.ConnectionPool.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%r</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">)</span></div></div>
 
 
 <span class="k">class</span> <span class="nc">DummyConnectionPool</span><span class="p">(</span><span class="n">ConnectionPool</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
                 <span class="s2">&quot;DummyConnectionPool needs exactly one &quot;</span> <span class="s2">&quot;connection defined.&quot;</span>
             <span class="p">)</span>
         <span class="c1"># we need connection opts for sniffing logic</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection_opts</span> <span class="o">=</span> <span class="n">connections</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">connections</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">connections</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connections</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="p">,)</span>
 
-    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span>
 
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Explicitly closes connections</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_noop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_noop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="n">mark_dead</span> <span class="o">=</span> <span class="n">mark_live</span> <span class="o">=</span> <span class="n">resurrect</span> <span class="o">=</span> <span class="n">_noop</span>
@@ -397,14 +405,14 @@
 <span class="k">class</span> <span class="nc">EmptyConnectionPool</span><span class="p">(</span><span class="n">ConnectionPool</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A connection pool that is empty. Errors out if used.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connections</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connection_opts</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Connection</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="s2">&quot;No connections were configured&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_noop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_noop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="n">close</span> <span class="o">=</span> <span class="n">mark_dead</span> <span class="o">=</span> <span class="n">mark_live</span> <span class="o">=</span> <span class="n">resurrect</span> <span class="o">=</span> <span class="n">_noop</span>

@@ -80,7 +80,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.helpers.aggs</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -106,16 +107,15 @@
 <span class="c1">#  specific language governing permissions and limitations</span>
 <span class="c1">#  under the License.</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections_abc</span>  <span class="c1"># only works on python 3.3+</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">collections</span> <span class="k">as</span> <span class="nn">collections_abc</span>
+
+<span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections_abc</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">.response.aggs</span> <span class="kn">import</span> <span class="n">AggResponse</span><span class="p">,</span> <span class="n">BucketData</span><span class="p">,</span> <span class="n">FieldBucketData</span><span class="p">,</span> <span class="n">TopHitsData</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">DslBase</span>
 
 
-<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">name_or_agg</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">name_or_agg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="k">if</span> <span class="nb">filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">name_or_agg</span> <span class="o">!=</span> <span class="s2">&quot;filter&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -129,7 +129,7 @@
         <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;A() cannot accept parameters when passing in a dict.&quot;</span><span class="p">)</span>
         <span class="c1"># copy to avoid modifying in-place</span>
-        <span class="n">agg</span> <span class="o">=</span> <span class="n">name_or_agg</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">agg</span> <span class="o">=</span> <span class="n">name_or_agg</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
         <span class="c1"># pop out nested aggs</span>
         <span class="n">aggs</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;aggs&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="c1"># pop out meta data</span>
@@ -162,20 +162,20 @@
 
 
 <div class="viewcode-block" id="Agg"><a class="viewcode-back" href="../../../api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg">[docs]</a><span class="k">class</span> <span class="nc">Agg</span><span class="p">(</span><span class="n">DslBase</span><span class="p">):</span>
-    <span class="n">_type_name</span> <span class="o">=</span> <span class="s2">&quot;agg&quot;</span>
+    <span class="n">_type_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;agg&quot;</span>
     <span class="n">_type_shortcut</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="Agg.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Agg.to_dict"><a class="viewcode-back" href="../../../api-ref/helpers/aggs.html#opensearchpy.helpers.aggs.Agg.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Agg</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;meta&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]:</span>
             <span class="n">d</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">AggResponse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
 
 
@@ -184,10 +184,10 @@
         <span class="s2">&quot;aggs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;aggs&quot;</span><span class="p">,</span> <span class="p">{})</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agg_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_name</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">agg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;aggs&quot;</span><span class="p">,</span> <span class="p">{})[</span><span class="n">agg_name</span><span class="p">]</span>  <span class="c1"># propagate KeyError</span>
 
         <span class="c1"># make sure we&#39;re not mutating a shared state - whenever accessing a</span>
@@ -199,13 +199,15 @@
 
         <span class="k">return</span> <span class="n">agg</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agg_name</span><span class="p">,</span> <span class="n">agg</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">agg</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aggs</span><span class="p">[</span><span class="n">agg_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">agg</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aggs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_agg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_agg</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">bucket</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">agg</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
         <span class="c1"># For chaining - when creating new buckets return them...</span>
@@ -215,26 +217,26 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base</span>
 
-    <span class="k">def</span> <span class="nf">metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">metric</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">agg_type</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">BucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Bucket</span><span class="p">(</span><span class="n">AggBase</span><span class="p">,</span> <span class="n">Agg</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Bucket</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="c1"># remember self for chaining</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_base</span> <span class="o">=</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">AggBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;aggs&quot;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]:</span>
             <span class="n">d</span><span class="p">[</span><span class="s2">&quot;aggs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;aggs&quot;</span><span class="p">)</span>
@@ -242,18 +244,18 @@
 
 
 <span class="k">class</span> <span class="nc">Filter</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;filter&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;filter&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">},</span>
         <span class="s2">&quot;aggs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">params</span><span class="p">[</span><span class="s2">&quot;filter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">filter</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Filter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Filter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="p">{}))</span>
         <span class="k">return</span> <span class="n">d</span>
@@ -265,7 +267,7 @@
 
 <span class="c1"># bucket aggregations</span>
 <span class="k">class</span> <span class="nc">Filters</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;filters&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;filters&quot;</span>
     <span class="n">_param_defs</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
         <span class="s2">&quot;aggs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
@@ -283,7 +285,7 @@
 <span class="k">class</span> <span class="nc">DateHistogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;date_histogram&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
@@ -318,7 +320,7 @@
 <span class="k">class</span> <span class="nc">Histogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;histogram&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
@@ -341,7 +343,7 @@
 <span class="k">class</span> <span class="nc">RareTerms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;rare_terms&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
@@ -360,7 +362,7 @@
 <span class="k">class</span> <span class="nc">Terms</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;terms&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
@@ -383,7 +385,7 @@
 <span class="k">class</span> <span class="nc">VariableWidthHistogram</span><span class="p">(</span><span class="n">Bucket</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;variable_width_histogram&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FieldBucketData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 
@@ -391,7 +393,7 @@
 <span class="k">class</span> <span class="nc">TopHits</span><span class="p">(</span><span class="n">Agg</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;top_hits&quot;</span>
 
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">TopHitsData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
 

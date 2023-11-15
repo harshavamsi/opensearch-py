@@ -81,7 +81,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.client.snapshot</h1><div class="highlight"><pre>
-<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -108,25 +109,45 @@
 <span class="c1">#  under the License.</span>
 
 
+<span class="c1"># ----------------------------------------------------</span>
+<span class="c1"># THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.</span>
+<span class="c1">#</span>
+<span class="c1"># To contribute, kindly make essential modifications through either the &quot;opensearch-py client generator&quot;:</span>
+<span class="c1"># https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py</span>
+<span class="c1"># or the &quot;OpenSearch API specification&quot; available at:</span>
+<span class="c1"># https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json</span>
+<span class="c1"># -----------------------------------------------------</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
 <div class="viewcode-block" id="SnapshotClient"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient">[docs]</a><span class="k">class</span> <span class="nc">SnapshotClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
-<div class="viewcode-block" id="SnapshotClient.create"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.create"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a snapshot in a repository.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: A snapshot name</span>
+<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg snapshot: Snapshot name.</span>
 <span class="sd">        :arg body: The snapshot definition</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
 <span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning</span>
+<span class="sd">            operation has completed before returning. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -140,18 +161,25 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.delete"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.delete"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a snapshot.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: A snapshot name</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
+<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg snapshot: Snapshot name.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -165,33 +193,31 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SnapshotClient.get"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.get">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;include_repository&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;index_details&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about a snapshot.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: A comma-separated list of snapshot names</span>
+<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg snapshot: Comma-separated list of snapshot names.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg ignore_unavailable: Whether to ignore unavailable</span>
 <span class="sd">            snapshots, defaults to false which means a SnapshotMissingException is</span>
-<span class="sd">            thrown</span>
-<span class="sd">        :arg include_repository: Whether to include the repository name</span>
-<span class="sd">            in the snapshot info. Defaults to true.</span>
-<span class="sd">        :arg index_details: Whether to include details of each index in</span>
-<span class="sd">            the snapshot, if those details are available. Defaults to false.</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
+<span class="sd">            thrown. Default is false.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
 <span class="sd">        :arg verbose: Whether to show verbose snapshot info or only show</span>
-<span class="sd">            the basic info found in the repository index blob</span>
+<span class="sd">            the basic info found in the repository index blob.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -204,19 +230,25 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.delete_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">delete_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.delete_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.delete_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">delete_repository</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a repository.</span>
 
 
 <span class="sd">        :arg repository: Name of the snapshot repository to unregister.</span>
 <span class="sd">            Wildcard (`*`) patterns are supported.</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
+<span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -228,38 +260,51 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.get_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.get_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.get_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.get_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_repository</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about a repository.</span>
 
 
-<span class="sd">        :arg repository: A comma-separated list of repository names</span>
+<span class="sd">        :arg repository: Comma-separated list of repository names.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg local: Return local information, do not retrieve the state</span>
-<span class="sd">            from cluster_manager node (default: false)</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
+<span class="sd">            from cluster-manager node. Default is false.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_snapshot&quot;</span><span class="p">,</span> <span class="n">repository</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.create_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;verify&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">create_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.create_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.create_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;verify&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">create_repository</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a repository.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
+<span class="sd">        :arg repository: Repository name.</span>
 <span class="sd">        :arg body: The repository definition</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
-<span class="sd">        :arg verify: Whether to verify the repository after creation</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
+<span class="sd">        :arg timeout: Operation timeout.</span>
+<span class="sd">        :arg verify: Whether to verify the repository after creation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -273,21 +318,29 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.restore"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.restore">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">restore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.restore"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.restore">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">restore</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Restores a snapshot.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: A snapshot name</span>
+<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg snapshot: Snapshot name.</span>
 <span class="sd">        :arg body: Details of what to restore</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
 <span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning</span>
+<span class="sd">            operation has completed before returning. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -301,21 +354,28 @@
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.status"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.status">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">snapshot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.status"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.status">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore_unavailable&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about the status of a snapshot.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: A comma-separated list of snapshot names</span>
+<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg snapshot: Comma-separated list of snapshot names.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
 <span class="sd">        :arg ignore_unavailable: Whether to ignore unavailable</span>
 <span class="sd">            snapshots, defaults to false which means a SnapshotMissingException is</span>
-<span class="sd">            thrown</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
+<span class="sd">            thrown. Default is false.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
@@ -324,18 +384,24 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.verify_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.verify_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">verify_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.verify_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.verify_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">verify_repository</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Verifies a repository.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
+<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
+<span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -347,18 +413,24 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.cleanup_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">cleanup_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SnapshotClient.cleanup_repository"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.cleanup_repository">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;timeout&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">cleanup_repository</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Removes stale data from repository.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
-<span class="sd">        :arg timeout: Explicit operation timeout</span>
+<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
+<span class="sd">        :arg timeout: Operation timeout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
@@ -370,22 +442,29 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SnapshotClient.clone"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.clone">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;master_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="SnapshotClient.clone"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.clone">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;cluster_manager_timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;master_timeout&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">,</span> <span class="n">target_snapshot</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">repository</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">target_snapshot</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">body</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clones indices from one snapshot into another snapshot in the same repository.</span>
 
 
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg snapshot: The name of the snapshot to clone from</span>
-<span class="sd">        :arg target_snapshot: The name of the cloned snapshot to create</span>
+<span class="sd">        :arg repository: Repository name.</span>
+<span class="sd">        :arg snapshot: Snapshot name.</span>
+<span class="sd">        :arg target_snapshot: The name of the cloned snapshot to create.</span>
 <span class="sd">        :arg body: The snapshot clone definition</span>
-<span class="sd">        :arg master_timeout (Deprecated: use cluster_manager_timeout): Explicit operation timeout for connection</span>
-<span class="sd">            to master node</span>
-<span class="sd">        :arg cluster_manager_timeout: Explicit operation timeout for connection</span>
-<span class="sd">            to cluster_manager node</span>
+<span class="sd">        :arg cluster_manager_timeout: Operation timeout for connection</span>
+<span class="sd">            to cluster-manager node.</span>
+<span class="sd">        :arg master_timeout (Deprecated: To promote inclusive language,</span>
+<span class="sd">            use &#39;cluster_manager_timeout&#39; instead.): Operation timeout for</span>
+<span class="sd">            connection to master node.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">,</span> <span class="n">target_snapshot</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
@@ -397,59 +476,6 @@
             <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="SnapshotClient.repository_analyze"><a class="viewcode-back" href="../../../api-ref/clients/snapshot_client.html#opensearchpy.client.snapshot.SnapshotClient.repository_analyze">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
-        <span class="s2">&quot;blob_count&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;concurrency&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;detailed&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;early_read_node_count&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;max_blob_size&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;max_total_data_size&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rare_action_probability&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rarely_abort_writes&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;read_node_count&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;seed&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">repository_analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Analyzes a repository for correctness and performance</span>
-
-
-<span class="sd">        :arg repository: A repository name</span>
-<span class="sd">        :arg blob_count: Number of blobs to create during the test.</span>
-<span class="sd">            Defaults to 100.</span>
-<span class="sd">        :arg concurrency: Number of operations to run concurrently</span>
-<span class="sd">            during the test. Defaults to 10.</span>
-<span class="sd">        :arg detailed: Whether to return detailed results or a summary.</span>
-<span class="sd">            Defaults to &#39;false&#39; so that only the summary is returned.</span>
-<span class="sd">        :arg early_read_node_count: Number of nodes on which to perform</span>
-<span class="sd">            an early read on a blob, i.e. before writing has completed. Early reads</span>
-<span class="sd">            are rare actions so the &#39;rare_action_probability&#39; parameter is also</span>
-<span class="sd">            relevant. Defaults to 2.</span>
-<span class="sd">        :arg max_blob_size: Maximum size of a blob to create during the</span>
-<span class="sd">            test, e.g &#39;1gb&#39; or &#39;100mb&#39;. Defaults to &#39;10mb&#39;.</span>
-<span class="sd">        :arg max_total_data_size: Maximum total size of all blobs to</span>
-<span class="sd">            create during the test, e.g &#39;1tb&#39; or &#39;100gb&#39;. Defaults to &#39;1gb&#39;.</span>
-<span class="sd">        :arg rare_action_probability: Probability of taking a rare</span>
-<span class="sd">            action such as an early read or an overwrite. Defaults to 0.02.</span>
-<span class="sd">        :arg rarely_abort_writes: Whether to rarely abort writes before</span>
-<span class="sd">            they complete. Defaults to &#39;true&#39;.</span>
-<span class="sd">        :arg read_node_count: Number of nodes on which to read a blob</span>
-<span class="sd">            after writing. Defaults to 10.</span>
-<span class="sd">        :arg seed: Seed for the random number generator used to create</span>
-<span class="sd">            the test workload. Defaults to a random value.</span>
-<span class="sd">        :arg timeout: Explicit operation timeout. Defaults to &#39;30s&#39;.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">repository</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Empty value passed for a required argument &#39;repository&#39;.&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
-            <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
-            <span class="n">_make_path</span><span class="p">(</span><span class="s2">&quot;_snapshot&quot;</span><span class="p">,</span> <span class="n">repository</span><span class="p">,</span> <span class="s2">&quot;_analyze&quot;</span><span class="p">),</span>
-            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 </pre></div>
 
