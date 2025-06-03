@@ -1,25 +1,24 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>opensearchpy.client.tasks &mdash; OpenSearch Python Client  documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=7f485136" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -81,8 +80,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for opensearchpy.client.tasks</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+<span></span><span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
 <span class="c1">#</span>
 <span class="c1"># The OpenSearch Contributors require contributions made to</span>
 <span class="c1"># this file be licensed under the Apache-2.0 license or a</span>
@@ -109,33 +107,37 @@
 <span class="c1">#  under the License.</span>
 
 
-<span class="c1"># ----------------------------------------------------</span>
-<span class="c1"># THIS CODE IS GENERATED AND MANUAL EDITS WILL BE LOST.</span>
+<span class="c1"># ------------------------------------------------------------------------------------------</span>
+<span class="c1"># THIS CODE IS AUTOMATICALLY GENERATED AND MANUAL EDITS WILL BE LOST</span>
 <span class="c1">#</span>
-<span class="c1"># To contribute, kindly make essential modifications through either the &quot;opensearch-py client generator&quot;:</span>
-<span class="c1"># https://github.com/opensearch-project/opensearch-py/blob/main/utils/generate-api.py</span>
-<span class="c1"># or the &quot;OpenSearch API specification&quot; available at:</span>
-<span class="c1"># https://github.com/opensearch-project/opensearch-api-specification/blob/main/OpenSearch.openapi.json</span>
-<span class="c1"># -----------------------------------------------------</span>
+<span class="c1"># To contribute, kindly make modifications in the opensearch-py client generator</span>
+<span class="c1"># or in the OpenSearch API specification, and run `nox -rs generate`. See DEVELOPER_GUIDE.md</span>
+<span class="c1"># and https://github.com/opensearch-project/opensearch-api-specification for details.</span>
+<span class="c1"># -----------------------------------------------------------------------------------------+</span>
 
 
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SKIP_IN_PATH</span><span class="p">,</span> <span class="n">NamespacedClient</span><span class="p">,</span> <span class="n">_make_path</span><span class="p">,</span> <span class="n">query_params</span>
 
 
-<div class="viewcode-block" id="TasksClient"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient">[docs]</a><span class="k">class</span> <span class="nc">TasksClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
+<div class="viewcode-block" id="TasksClient"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">TasksClient</span><span class="p">(</span><span class="n">NamespacedClient</span><span class="p">):</span>
 <div class="viewcode-block" id="TasksClient.list"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.list">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
         <span class="s2">&quot;actions&quot;</span><span class="p">,</span>
         <span class="s2">&quot;detailed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
         <span class="s2">&quot;group_by&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
         <span class="s2">&quot;nodes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;parent_task_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
         <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
         <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">headers</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -144,28 +146,53 @@
 <span class="sd">        Returns a list of tasks.</span>
 
 
-<span class="sd">        :arg actions: Comma-separated list of actions that should be</span>
-<span class="sd">            returned. Leave empty to return all.</span>
-<span class="sd">        :arg detailed: Return detailed task information. Default is</span>
-<span class="sd">            false.</span>
-<span class="sd">        :arg group_by: Group tasks by nodes or parent/child</span>
-<span class="sd">            relationships. Valid choices are nodes, parents, none.</span>
+<span class="sd">        :arg actions: Comma-separated list or wildcard expression of</span>
+<span class="sd">            actions used to limit the request.</span>
+<span class="sd">        :arg detailed: If `true`, the response includes detailed</span>
+<span class="sd">            information about shard recoveries. Default is false.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
+<span class="sd">        :arg group_by: Key used to group tasks in the response. Valid</span>
+<span class="sd">            choices are nodes, none, parents.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics. Default is True.</span>
 <span class="sd">        :arg nodes: Comma-separated list of node IDs or names to limit</span>
 <span class="sd">            the returned information; use `_local` to return information from the</span>
 <span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
 <span class="sd">            nodes.</span>
-<span class="sd">        :arg parent_task_id: Return tasks with specified parent task id</span>
-<span class="sd">            (node_id:task_number). Set to -1 to return all.</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
-<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning. Default is false.</span>
+<span class="sd">        :arg parent_task_id: Parent task ID used to limit returned</span>
+<span class="sd">            information. To return all tasks, omit this parameter or use a value of</span>
+<span class="sd">            `-1`.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
+<span class="sd">        :arg wait_for_completion: If `true`, the request blocks until</span>
+<span class="sd">            the operation is complete. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/_tasks&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TasksClient.cancel"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.cancel">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;actions&quot;</span><span class="p">,</span> <span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="s2">&quot;parent_task_id&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">cancel</span><span class="p">(</span>
+<div class="viewcode-block" id="TasksClient.cancel"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.cancel">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;actions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;nodes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;parent_task_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -175,18 +202,27 @@
 <span class="sd">        Cancels a task, if it can be cancelled through an API.</span>
 
 
-<span class="sd">        :arg task_id: Cancel the task with specified task id</span>
-<span class="sd">            (node_id:task_number).</span>
-<span class="sd">        :arg actions: Comma-separated list of actions that should be</span>
-<span class="sd">            cancelled. Leave empty to cancel all.</span>
-<span class="sd">        :arg nodes: Comma-separated list of node IDs or names to limit</span>
-<span class="sd">            the returned information; use `_local` to return information from the</span>
-<span class="sd">            node you&#39;re connecting to, leave empty to get information from all</span>
-<span class="sd">            nodes.</span>
-<span class="sd">        :arg parent_task_id: Cancel tasks with specified parent task id</span>
-<span class="sd">            (node_id:task_number). Set to -1 to cancel all.</span>
-<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning. Default is false.</span>
+<span class="sd">        :arg task_id: ID of the task.</span>
+<span class="sd">        :arg actions: Comma-separated list or wildcard expression of</span>
+<span class="sd">            actions used to limit the request.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics. Default is True.</span>
+<span class="sd">        :arg nodes: Comma-separated list of node IDs or names used to</span>
+<span class="sd">            limit the request.</span>
+<span class="sd">        :arg parent_task_id: Parent task ID used to limit the tasks.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg wait_for_completion: Should the request block until the</span>
+<span class="sd">            cancellation of the task and its descendant tasks is completed. Defaults</span>
+<span class="sd">            to false Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">perform_request</span><span class="p">(</span>
             <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
@@ -195,8 +231,16 @@
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TasksClient.get"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.get">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span> <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span>
+<div class="viewcode-block" id="TasksClient.get"><a class="viewcode-back" href="../../../api-ref/clients/tasks_client.html#opensearchpy.client.tasks.TasksClient.get">[docs]</a>    <span class="nd">@query_params</span><span class="p">(</span>
+        <span class="s2">&quot;error_trace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;filter_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pretty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wait_for_completion&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">task_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -206,11 +250,24 @@
 <span class="sd">        Returns information about a task.</span>
 
 
-<span class="sd">        :arg task_id: Return the task with specified id</span>
-<span class="sd">            (node_id:task_number).</span>
-<span class="sd">        :arg timeout: Operation timeout.</span>
-<span class="sd">        :arg wait_for_completion: Should this request wait until the</span>
-<span class="sd">            operation has completed before returning. Default is false.</span>
+<span class="sd">        :arg task_id: ID of the task.</span>
+<span class="sd">        :arg error_trace: Whether to include the stack trace of returned</span>
+<span class="sd">            errors. Default is false.</span>
+<span class="sd">        :arg filter_path: Used to reduce the response. This parameter</span>
+<span class="sd">            takes a comma-separated list of filters. It supports using wildcards to</span>
+<span class="sd">            match any field or part of a field’s name. You can also exclude fields</span>
+<span class="sd">            with &quot;-&quot;.</span>
+<span class="sd">        :arg human: Whether to return human readable values for</span>
+<span class="sd">            statistics. Default is True.</span>
+<span class="sd">        :arg pretty: Whether to pretty format the returned JSON</span>
+<span class="sd">            response. Default is false.</span>
+<span class="sd">        :arg source: The URL-encoded request definition. Useful for</span>
+<span class="sd">            libraries that do not accept a request body for non-POST requests.</span>
+<span class="sd">        :arg timeout: Period to wait for a response. If no response is</span>
+<span class="sd">            received before the timeout expires, the request fails and returns an</span>
+<span class="sd">            error.</span>
+<span class="sd">        :arg wait_for_completion: If `true`, the request blocks until</span>
+<span class="sd">            the task has completed. Default is false.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">task_id</span> <span class="ow">in</span> <span class="n">SKIP_IN_PATH</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
